@@ -1,0 +1,38 @@
+{
+  "name": "pagemint",
+  "version": "0.1.8",
+  "private": true,
+  "license": "MIT",
+  "description": "Privacy-first browser capture product for saving web pages as trustworthy PDFs.",
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "dev:extension": "pnpm --filter @pagemint/extension dev",
+    "dev:site": "pnpm --filter @pagemint/site dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "pnpm run test:scaffold && pnpm run test:contracts",
+    "test:browser:install": "pnpm exec playwright install chromium",
+    "test:browser": "node --import ./tests/setup-env.mjs --loader ./tests/loader.mjs --test --test-concurrency=1 tests/browser/*.test.ts",
+    "test:scaffold": "node tests/scaffold/verify-scaffold.mjs && node tests/scaffold/prepare-hermetic-workspace.mjs && node --test tests/unit/package-shape.test.mjs && node --import ./tests/setup-env.mjs --loader ./tests/loader.mjs --test --test-concurrency=1 tests/unit/*.test.ts",
+    "test:contracts": "pnpm exec tsc --noEmit --allowImportingTsExtensions --module ESNext --moduleResolution bundler --target ES2022 --strict --skipLibCheck tests/types/exact-export-contract.typecheck.ts",
+    "test:workspace": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "repo:smoke": "pnpm run test:scaffold",
+    "repo:verify:prebuild": "pnpm run lint && pnpm test && pnpm run test:workspace && pnpm run typecheck && pnpm run test:browser",
+    "clean:site-build": "rm -rf apps/site/.next",
+    "repo:verify": "pnpm run repo:verify:prebuild && pnpm run clean:site-build && pnpm run build",
+    "chrome-store:release": "scripts/chrome-store-release.sh",
+    "chrome-store:prepare": "pnpm --filter @pagemint/extension icons && pnpm --filter @pagemint/extension tiles && pnpm --filter @pagemint/extension screenshots && pnpm --filter @pagemint/extension zip && pnpm run chrome-store:preflight",
+    "chrome-store:preflight": "node scripts/chrome-store-preflight.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.1",
+    "@types/react": "^19.1.2",
+    "linkedom": "^0.18.12",
+    "next": "^15.3.1",
+    "sharp": "^0.34.5",
+    "turbo": "^2.5.0",
+    "typescript": "^5.8.3"
+  }
+}

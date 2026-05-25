@@ -1,0 +1,24 @@
+{
+  "name": "@pagemint/shared-types",
+  "version": "0.1.8",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "test": "pnpm exec tsc --noEmit --allowImportingTsExtensions --module ESNext --moduleResolution bundler --target ES2022 --strict --skipLibCheck ../../tests/types/exact-export-contract.typecheck.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

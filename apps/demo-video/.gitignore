@@ -1,0 +1,12 @@
+node_modules
+out
+.remotion
+*.log
+
+# Source clips are local-only; do not commit large media into git.
+public/clip-*.mov
+public/clip-*.mp4
+
+# Brand SVGs are copies — source of truth lives in apps/site/public/brand/
+# and apps/extension/icons/brand/. Re-copy if originals change.
+# (kept tracked so the demo renders standalone)

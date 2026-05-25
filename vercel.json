@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "pnpm --filter @pagemint/site build",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "outputDirectory": "apps/site/.next",
+  "framework": "nextjs",
+  "git": {
+    "deploymentEnabled": false
+  }
+}

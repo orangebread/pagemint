@@ -1,0 +1,34 @@
+# Local secrets and machine state
+.env
+.env.*
+apps/*/.env
+apps/*/.env.*
+.vercel/
+apps/*/.vercel/
+
+# Dependencies and build artifacts
+node_modules/
+.pnpm-store/
+.turbo/
+dist/
+.next/
+apps/*/.next/
+apps/*/.output/
+apps/*/.wxt/
+coverage/
+.data/
+*.tsbuildinfo
+
+# Local verification and agent artifacts
+.ai/
+.claude/
+.codex/
+.pi/
+.superpowers/
+.worktrees/
+AGENTS.md
+taskplane-tasks/
+docs/archive/
+docs/superpowers/
+apps/*/.claude/
+.playwright-mcp/

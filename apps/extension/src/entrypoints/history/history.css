@@ -1,0 +1,7 @@
+/*
+ * PageMint history — standalone tab surface.
+ * Reuses the options press identity (tokens, shell, card, header, footer)
+ * so opening history in its own tab matches Settings.
+ */
+
+@import url('../options/options.css');

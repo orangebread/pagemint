@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Support Inbox</title>
+    <style>
+      body { margin: 0; font: 15px/1.55 system-ui, sans-serif; }
+      .shell { display: grid; grid-template-columns: 280px minmax(0, 1fr); height: 100vh; }
+      .pane { padding: 24px; border-right: 1px solid #d8dde3; overflow: auto; }
+      .detail { padding: 24px; overflow: auto; }
+      .thread { margin-bottom: 18px; }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="pane">
+        <div class="thread">
+          <h2>Requester 1</h2>
+          <p>The export retry question includes a current status, a browser note, and the next response owner.</p>
+        </div>
+        <div class="thread">
+          <h2>Requester 2</h2>
+          <p>The folder access request has a separate path, a different owner, and an unrelated action queue.</p>
+        </div>
+        <div class="thread">
+          <h2>Requester 3</h2>
+          <p>The shortcut timing note tracks keyboard preferences, setup steps, and a pending follow-up.</p>
+        </div>
+      </aside>
+      <main class="detail">
+        <h1>Re: Export retry question</h1>
+        <p>Thanks for reaching out. We retried the export and saw a browser interruption, so the next attempt is queued for tomorrow morning.</p>
+        <p>The current tab still has enough context for a retry, but the user needs to keep the page open until the next run starts.</p>
+        <p>This detail pane is useful on its own, while the inbox pane beside it is another useful region with different records.</p>
+        <p>That detail pane has real text, but the page is still a multi-pane app shell with two independent regions. Clean mode should reject it.</p>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <radialGradient id="g128a" cx="0.3" cy="0.2" r="0.7">
+      <stop offset="0" stop-color="#17130E" stop-opacity="0.045"/>
+      <stop offset="0.55" stop-color="#17130E" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g128b" cx="0.7" cy="0.8" r="0.7">
+      <stop offset="0" stop-color="#17130E" stop-opacity="0.05"/>
+      <stop offset="0.55" stop-color="#17130E" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="c128">
+      <rect x="3" y="3" width="122" height="122" rx="23" ry="23"/>
+    </clipPath>
+  </defs>
+  <rect x="3" y="3" width="122" height="122" rx="23" ry="23" fill="#F4EEE1" stroke="#17130E" stroke-width="3.2"/>
+  <g clip-path="url(#c128)">
+    <rect x="3" y="3" width="122" height="122" fill="url(#g128a)"/>
+    <rect x="3" y="3" width="122" height="122" fill="url(#g128b)"/>
+  </g>
+  <text x="64" y="100" font-family="Georgia, 'Iowan Old Style', 'Times New Roman', serif" font-style="italic" font-weight="600" font-size="100" fill="#17130E" text-anchor="middle" letter-spacing="-4">P</text>
+  <circle cx="106" cy="105" r="4.5" fill="#4A7A5A"/>
+</svg>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Comment Heavy Fixture</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Georgia, serif;
+        background: #f5f0e6;
+        color: #201810;
+      }
+
+      header {
+        position: fixed;
+        inset: 0 0 auto 0;
+        padding: 16px 24px;
+        background: rgba(255, 255, 255, 0.92);
+        border-bottom: 1px solid rgba(32, 24, 16, 0.12);
+      }
+
+      main {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 112px 24px 64px;
+      }
+
+      article,
+      #comments {
+        background: #fffdf9;
+        border: 1px solid rgba(32, 24, 16, 0.08);
+        border-radius: 24px;
+        padding: 32px 40px;
+      }
+
+      article {
+        margin-bottom: 24px;
+      }
+
+      h1,
+      h2 {
+        margin: 0 0 12px;
+        line-height: 1.15;
+      }
+
+      p {
+        margin: 0 0 18px;
+        font-size: 19px;
+        line-height: 1.75;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        margin: 28px 0;
+        border-radius: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Fixture chrome</header>
+    <main role="main">
+      <article>
+        <h1>Comment Heavy Fixture</h1>
+        <p>This fixture keeps the article body clearly readable while the surrounding main container also contains a large discussion block.</p>
+        <p>The root selector should still resolve to the article because comment chrome should not win the score just by being verbose.</p>
+        <img
+          alt="Decorative export fixture"
+          loading="lazy"
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='720'%3E%3Crect width='1200' height='720' fill='%23d8c7a4'/%3E%3Ctext x='80' y='360' font-size='72' font-family='Georgia' fill='%23201810'%3EHigh fidelity fixture%3C/text%3E%3C/svg%3E"
+        />
+        <h2>Why It Matters</h2>
+        <p>Real pages rarely fail because the article disappears completely; they fail because noisy chrome makes the whole app shell look like the safer root.</p>
+        <p>This regression keeps the browser harness honest by checking the same heuristic under a real page and a real CDP session.</p>
+      </article>
+      <section id="comments" aria-label="Comments">
+        <h2>Discussion</h2>
+        <p>Comment 1: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 2: the text volume here exists to stress the selector heuristics rather than to simulate meaningful conversation.</p>
+        <p>Comment 3: the root scorer should not confuse a noisy supplement block with the reading surface just because the supplement is longer.</p>
+        <p>Comment 4: if this fixture regresses, the browser boundary test should catch it before users notice that exports include the wrong container.</p>
+        <p>Comment 5: repeated content keeps the discussion section heavy enough to matter in the scoring path.</p>
+        <p>Comment 6: production fixtures should be explicit and reviewable instead of being generated inside test helpers.</p>
+        <p>Comment 7: that is the whole point of moving this surface to file-backed HTML.</p>
+        <p>Comment 8: the browser harness now exercises a case that previously only existed in a unit test string literal.</p>
+      </section>
+    </main>
+  </body>
+</html>

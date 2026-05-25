@@ -1,0 +1,35 @@
+{
+  "name": "@pagemint/extension",
+  "version": "0.1.8",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt build",
+    "icons": "node scripts/generate-icons.mjs && node scripts/generate-store-tiles.mjs",
+    "tiles": "node scripts/generate-store-tiles.mjs",
+    "screenshots": "node scripts/generate-store-screenshots.mjs",
+    "zip": "wxt zip",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "test": "node --import ../../tests/setup-env.mjs --loader ../../tests/loader.mjs --test ../../tests/unit/extension-*.test.ts ../../tests/unit/extension-print-preparation-flow.test.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@fontsource-variable/fraunces": "^5.2.9",
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/ibm-plex-sans": "^5.2.8",
+    "@pagemint/render-core": "workspace:*",
+    "@pagemint/shared-types": "workspace:*",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@wxt-dev/module-react": "^1.1.2",
+    "typescript": "^5.8.3",
+    "wxt": "^0.20.7"
+  }
+}

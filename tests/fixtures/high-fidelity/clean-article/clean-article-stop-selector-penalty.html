@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <main role="main">
+      <article>
+        <h1>Focused Story</h1>
+        <p>This fixture keeps the article body clearly readable while remaining smaller than the surrounding chrome if stop selectors are ignored.</p>
+        <p>Another paragraph keeps the article above the scoped-root confidence threshold and makes the root choice observable.</p>
+        <figure>
+          <img src="/fixture.png" alt="fixture" />
+          <figcaption>Fixture image caption</figcaption>
+        </figure>
+        <h2>Why This Matters</h2>
+        <p>The article body needs enough semantic structure and text density to qualify as the real reading surface even when the surrounding main container contains a large discussion block.</p>
+        <p>That makes this regression test meaningful instead of passing only because the article itself fails the confidence gate.</p>
+        <h2>What To Expect</h2>
+        <p>The generic selector set should still resolve to the article because the stop selectors mark the comment subtree as non-content chrome for scoring purposes.</p>
+        <p>A final paragraph closes the loop so the page still looks like a realistic reading surface.</p>
+      </article>
+      <section id="comments">
+        <p>Comment 1: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 2: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 3: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 4: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 5: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 6: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 7: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 8: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 9: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 10: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 11: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 12: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 13: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 14: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 15: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 16: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 17: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+        <p>Comment 18: this discussion block is intentionally long and repetitive so the enclosing main container would otherwise outscore the actual article root.</p>
+      </section>
+    </main>
+  </body>
+</html>

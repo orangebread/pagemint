@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>PageMint — Popup Redesign Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ------- stage ------- */
+  :root {
+    --cream: #F4EEE1;
+    --cream-2: #ECE4D1;
+    --ink: #17130E;
+    --ink-2: #3A3328;
+    --ink-3: #766B58;
+    --rule: #D8CFB9;
+    --mint: #B8D4BE;
+    --mint-ink: #1F3B29;
+    --mint-deep: #4A7A5A;
+
+    --dark-bg: #14120E;
+    --dark-surface: #1C1913;
+    --dark-ink: #F1E9D5;
+    --dark-ink-2: #B9AE92;
+    --dark-rule: #2D2822;
+    --dark-mint: #6B9377;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #E5DDCA;
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #17130E;
+    -webkit-font-smoothing: antialiased;
+  }
+  .stage {
+    min-height: 100vh;
+    padding: 56px 32px 96px;
+  }
+  .stage-header {
+    max-width: 1120px;
+    margin: 0 auto 40px;
+  }
+  .stage-title {
+    font-family: 'Fraunces', serif;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+    font-weight: 500;
+    font-variation-settings: 'opsz' 144;
+  }
+  .stage-title em {
+    font-style: italic;
+    font-weight: 400;
+  }
+  .stage-sub {
+    color: var(--ink-3);
+    max-width: 640px;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .row {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+    align-items: start;
+  }
+  .cell { display: flex; flex-direction: column; gap: 12px; }
+  .cell-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .cell-title {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  .cell-note {
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  /* ------- popup shell (reflects real extension width) ------- */
+  .popup {
+    width: 360px;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+      0 1px 0 rgba(0,0,0,0.04),
+      0 12px 32px -12px rgba(24,18,10,0.35),
+      0 2px 6px -2px rgba(24,18,10,0.18);
+  }
+
+  /* ========================================================== */
+  /*                 VARIANT A — light "press"                   */
+  /* ========================================================== */
+  .popup--light {
+    background: var(--cream);
+    color: var(--ink);
+  }
+  .popup--light .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px 10px;
+  }
+  .popup--light .wordmark {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .popup--light .wordmark-p {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-style: italic;
+    line-height: 1;
+    font-variation-settings: 'opsz' 144;
+  }
+  .popup--light .wordmark-name {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    font-variation-settings: 'opsz' 144;
+  }
+  .popup--light .wordmark-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--mint-deep);
+    margin-left: 2px;
+    transform: translateY(-1px);
+  }
+  .popup--light .head-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .popup--light .preset-chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 8px 4px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    color: var(--ink-2);
+    background: var(--cream-2);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .popup--light .preset-chip::before {
+    content: "";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--mint);
+    border: 1px solid var(--mint-ink);
+  }
+  .popup--light .gear {
+    width: 22px; height: 22px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--ink-3);
+    cursor: pointer;
+  }
+  .popup--light .rule {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    margin: 0 18px;
+  }
+
+  .popup--light .body {
+    padding: 20px 22px 18px;
+  }
+  .popup--light .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 8px;
+  }
+  .popup--light .h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    margin: 0 0 16px;
+    font-variation-settings: 'opsz' 144;
+  }
+  .popup--light .h1 em { font-style: italic; color: var(--ink-2); }
+
+  .popup--light .tab-card {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px;
+    background: var(--cream-2);
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  .popup--light .favicon {
+    width: 16px; height: 16px; flex: none;
+    border-radius: 3px;
+    background: linear-gradient(135deg, #FF9C3C, #E0543F);
+  }
+  .popup--light .tab-title {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    line-height: 1.2;
+  }
+  .popup--light .tab-host {
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--ink-3);
+    margin-top: 2px;
+    line-height: 1.2;
+  }
+
+  .popup--light .primary {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 0;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-variation-settings: 'opsz' 144;
+    transition: transform .08s ease;
+  }
+  .popup--light .primary:hover { transform: translateY(-1px); }
+  .popup--light .primary .arrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    opacity: .9;
+  }
+
+  .popup--light .meta {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  .popup--light .meta-specs {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-2);
+    letter-spacing: 0.01em;
+  }
+  .popup--light .meta-edit {
+    font-size: 11.5px;
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--ink-3);
+    cursor: pointer;
+  }
+
+  .popup--light .foot {
+    padding: 10px 22px 14px;
+    border-top: 1px solid var(--rule);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .popup--light .foot .pro {
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    text-decoration: none;
+    padding-bottom: 1px;
+  }
+
+  /* ========================================================== */
+  /*                VARIANT B — dark "press"                    */
+  /* ========================================================== */
+  .popup--dark {
+    background: var(--dark-bg);
+    color: var(--dark-ink);
+  }
+  .popup--dark .head,
+  .popup--dark .body,
+  .popup--dark .foot { }
+  .popup--dark .head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 18px 10px;
+  }
+  .popup--dark .wordmark-p {
+    font-family: 'Fraunces', serif;
+    font-size: 22px; font-weight: 600;
+    font-style: italic; color: var(--dark-ink);
+    line-height: 1;
+    font-variation-settings: 'opsz' 144;
+    margin-right: 8px;
+  }
+  .popup--dark .wordmark-name {
+    font-family: 'Fraunces', serif;
+    font-size: 18px; font-weight: 500;
+    line-height: 1;
+    font-variation-settings: 'opsz' 144;
+  }
+  .popup--dark .wordmark {
+    display: flex; align-items: baseline;
+  }
+  .popup--dark .preset-chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 4px 8px;
+    border: 1px solid var(--dark-rule);
+    border-radius: 999px;
+    color: var(--dark-ink-2);
+    background: var(--dark-surface);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .popup--dark .preset-chip::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--dark-mint);
+  }
+  .popup--dark .gear { color: var(--dark-ink-2); }
+  .popup--dark .rule { border: 0; border-top: 1px solid var(--dark-rule); margin: 0 18px; }
+
+  .popup--dark .body { padding: 20px 22px 18px; }
+  .popup--dark .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--dark-ink-2); margin: 0 0 8px;
+  }
+  .popup--dark .h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 30px; line-height: 1.05; letter-spacing: -0.025em;
+    font-weight: 400; margin: 0 0 16px;
+    font-variation-settings: 'opsz' 144;
+  }
+  .popup--dark .h1 em { font-style: italic; color: var(--dark-ink-2); }
+
+  .popup--dark .tab-card {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px;
+    background: var(--dark-surface);
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  .popup--dark .favicon { width: 16px; height: 16px; flex: none; border-radius: 3px;
+    background: linear-gradient(135deg, #FF9C3C, #E0543F); }
+  .popup--dark .tab-title {
+    font-size: 12.5px; font-weight: 500;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;
+  }
+  .popup--dark .tab-host {
+    font-size: 11px; font-family: 'IBM Plex Mono', monospace;
+    color: var(--dark-ink-2); margin-top: 2px; line-height: 1.2;
+  }
+
+  .popup--dark .primary {
+    display: flex; justify-content: space-between; align-items: center;
+    width: 100%; padding: 14px 16px;
+    border-radius: 10px; border: 0;
+    background: var(--dark-ink);
+    color: var(--dark-bg);
+    font-family: 'Fraunces', serif;
+    font-size: 17px; font-weight: 500; letter-spacing: -0.005em;
+    cursor: pointer;
+    font-variation-settings: 'opsz' 144;
+    transition: transform .08s ease;
+  }
+  .popup--dark .primary:hover { transform: translateY(-1px); }
+  .popup--dark .primary .arrow { font-family: 'IBM Plex Mono', monospace; font-size: 18px; opacity: .85; }
+
+  .popup--dark .meta {
+    margin-top: 14px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; font-size: 12px; color: var(--dark-ink-2);
+  }
+  .popup--dark .meta-specs { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; }
+  .popup--dark .meta-edit {
+    font-size: 11.5px; color: var(--dark-ink);
+    text-decoration: underline; text-underline-offset: 3px;
+    text-decoration-color: var(--dark-ink-2);
+    cursor: pointer;
+  }
+
+  .popup--dark .foot {
+    padding: 10px 22px 14px;
+    border-top: 1px solid var(--dark-rule);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.06em; color: var(--dark-ink-2);
+    text-transform: uppercase;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .popup--dark .foot .pro {
+    color: var(--dark-ink); border-bottom: 1px solid var(--dark-ink);
+    padding-bottom: 1px; text-decoration: none;
+  }
+
+  /* ========================================================== */
+  /*            VARIANT C — "customize" expanded state           */
+  /* ========================================================== */
+  .popup--open .meta-edit { color: var(--ink); text-decoration-color: var(--ink); }
+  .popup--open .drawer {
+    margin: 14px 0 0;
+    padding: 14px 0 0;
+    border-top: 1px dashed var(--rule);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 14px;
+  }
+  .popup--open .drawer-field { display: flex; flex-direction: column; gap: 4px; }
+  .popup--open .drawer-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .popup--open .drawer-select {
+    appearance: none;
+    background: transparent;
+    border: 0; border-bottom: 1px solid var(--rule);
+    padding: 4px 0 6px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .popup--open .drawer-select:focus { outline: 0; border-bottom-color: var(--ink); }
+  .popup--open .drawer-segmented {
+    display: inline-flex;
+    background: var(--cream-2);
+    border-radius: 7px;
+    padding: 3px;
+    gap: 2px;
+    font-size: 12px;
+  }
+  .popup--open .drawer-segmented button {
+    border: 0; background: transparent;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--ink-2);
+    cursor: pointer;
+  }
+  .popup--open .drawer-segmented .on {
+    background: var(--cream);
+    color: var(--ink);
+    box-shadow: 0 1px 0 rgba(0,0,0,.05), 0 0 0 1px var(--rule);
+  }
+  .popup--open .drawer-margins {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .popup--open .drawer-margin {
+    display: flex; flex-direction: column; gap: 3px;
+    padding: 8px 10px;
+    background: var(--cream-2);
+    border-radius: 7px;
+  }
+  .popup--open .drawer-margin-lab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .popup--open .drawer-margin-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px; color: var(--ink); font-weight: 500;
+  }
+  .popup--open .drawer-check {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12.5px; color: var(--ink-2);
+    padding-top: 4px;
+  }
+  .popup--open .drawer-check .box {
+    width: 14px; height: 14px; border-radius: 3px;
+    background: var(--ink);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--cream);
+    font-size: 10px;
+    flex: none;
+  }
+  .popup--open .drawer-save {
+    grid-column: 1 / -1;
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 6px;
+  }
+  .popup--open .drawer-reset {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-3);
+    background: transparent; border: 0; cursor: pointer;
+  }
+  .popup--open .drawer-save-preset {
+    font-size: 12px; font-weight: 500;
+    padding: 6px 12px;
+    background: var(--mint);
+    border: 1px solid var(--mint-ink);
+    color: var(--mint-ink);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  /* ===== notes column ===== */
+  .notes {
+    max-width: 1120px;
+    margin: 72px auto 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .notes h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+    margin: 0 0 12px;
+    font-variation-settings: 'opsz' 144;
+  }
+  .notes p, .notes li {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+  .notes ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+  .notes strong { color: var(--ink); font-weight: 600; }
+  .kbd {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    padding: 1px 6px;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    color: var(--ink);
+  }
+
+  .foot-brand {
+    max-width: 1120px;
+    margin: 80px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <div class="stage-header">
+    <h1 class="stage-title">PageMint <em>— popup redesign</em></h1>
+    <p class="stage-sub">Editorial press identity. Cream paper, black ink, one confident serif. Same information as the current popup — half the chrome, none of the accordions, zero dashboard metrics.</p>
+  </div>
+
+  <div class="row">
+
+    <!-- A. light default -->
+    <div class="cell">
+      <span class="cell-label">A · Default · Light</span>
+      <h2 class="cell-title">The press</h2>
+      <p class="cell-note">One job: save this page. The headline tells you what's happening; the button commits. Settings are one legible line of monospace; a tap of <em>Customize</em> opens the drawer.</p>
+
+      <div class="popup popup--light">
+        <div class="head">
+          <div class="wordmark">
+            <span class="wordmark-p">P</span>
+            <span class="wordmark-name">PageMint</span>
+            <span class="wordmark-dot"></span>
+          </div>
+          <div class="head-actions">
+            <span class="preset-chip">Exact</span>
+            <svg class="gear" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+              <circle cx="8" cy="8" r="2.2"/>
+              <path d="M8 1.5v2M8 12.5v2M14.5 8h-2M3.5 8h-2M12.6 3.4l-1.4 1.4M4.8 11.2l-1.4 1.4M12.6 12.6l-1.4-1.4M4.8 4.8 3.4 3.4"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="body">
+          <p class="eyebrow">Save · PDF</p>
+          <h2 class="h1">Print this page<br><em>&amp; save it.</em></h2>
+
+          <div class="tab-card">
+            <div class="favicon"></div>
+            <div style="min-width:0;">
+              <div class="tab-title">Maximizing the Value of Ultra-Focused Planning</div>
+              <div class="tab-host">medium.com</div>
+            </div>
+          </div>
+
+          <button class="primary">
+            <span>Export</span>
+            <span class="arrow">⏎</span>
+          </button>
+
+          <div class="meta">
+            <span class="meta-specs">A4 · Portrait · 0.5″ · 100%</span>
+            <span class="meta-edit">Customize</span>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>Saves locally · no uploads</span>
+          <a class="pro" href="#">Settings</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- B. dark -->
+    <div class="cell">
+      <span class="cell-label">B · Default · Dark</span>
+      <h2 class="cell-title">Night press</h2>
+      <p class="cell-note">Warm dark — not black, not glowing. The mint dot in the preset chip is the only color; everything else is ink on slate. Intentional, not trendy.</p>
+
+      <div class="popup popup--dark">
+        <div class="head">
+          <div class="wordmark">
+            <span class="wordmark-p">P</span>
+            <span class="wordmark-name">PageMint</span>
+          </div>
+          <div class="head-actions">
+            <span class="preset-chip">Exact</span>
+            <svg class="gear" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" style="width:18px;height:18px;">
+              <circle cx="8" cy="8" r="2.2"/>
+              <path d="M8 1.5v2M8 12.5v2M14.5 8h-2M3.5 8h-2M12.6 3.4l-1.4 1.4M4.8 11.2l-1.4 1.4M12.6 12.6l-1.4-1.4M4.8 4.8 3.4 3.4"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="body">
+          <p class="eyebrow">Save · PDF</p>
+          <h2 class="h1">Print this page<br><em>&amp; save it.</em></h2>
+
+          <div class="tab-card">
+            <div class="favicon"></div>
+            <div style="min-width:0;">
+              <div class="tab-title">Maximizing the Value of Ultra-Focused Planning</div>
+              <div class="tab-host">medium.com</div>
+            </div>
+          </div>
+
+          <button class="primary">
+            <span>Export</span>
+            <span class="arrow">⏎</span>
+          </button>
+
+          <div class="meta">
+            <span class="meta-specs">A4 · Portrait · 0.5″ · 100%</span>
+            <span class="meta-edit">Customize</span>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>Saves locally · no uploads</span>
+          <a class="pro" href="#">Settings</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- C. customize expanded -->
+    <div class="cell">
+      <span class="cell-label">C · Customize · Expanded</span>
+      <h2 class="cell-title">The drawer</h2>
+      <p class="cell-note">Customize expands inline — no modal, no second screen. Each control is a thin underlined control, not a fat styled select. Save as preset lives here, encouraging named local workflows.</p>
+
+      <div class="popup popup--light popup--open">
+        <div class="head">
+          <div class="wordmark">
+            <span class="wordmark-p">P</span>
+            <span class="wordmark-name">PageMint</span>
+            <span class="wordmark-dot"></span>
+          </div>
+          <div class="head-actions">
+            <span class="preset-chip">Exact</span>
+            <svg class="gear" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+              <circle cx="8" cy="8" r="2.2"/>
+              <path d="M8 1.5v2M8 12.5v2M14.5 8h-2M3.5 8h-2M12.6 3.4l-1.4 1.4M4.8 11.2l-1.4 1.4M12.6 12.6l-1.4-1.4M4.8 4.8 3.4 3.4"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="body">
+          <p class="eyebrow">Save · PDF</p>
+          <h2 class="h1" style="font-size:24px; margin-bottom:12px;">Print this page<br><em>&amp; save it.</em></h2>
+
+          <button class="primary" style="font-size:15px; padding:12px 14px;">
+            <span>Export</span>
+            <span class="arrow">⏎</span>
+          </button>
+
+          <div class="drawer">
+            <div class="drawer-field">
+              <span class="drawer-label">Paper</span>
+              <select class="drawer-select">
+                <option>A4</option><option>Letter</option><option>Legal</option><option>A3</option>
+              </select>
+            </div>
+            <div class="drawer-field">
+              <span class="drawer-label">Scale</span>
+              <select class="drawer-select">
+                <option>100%</option><option>90%</option><option>75%</option>
+              </select>
+            </div>
+            <div class="drawer-field">
+              <span class="drawer-label">Orientation</span>
+              <div class="drawer-segmented">
+                <button class="on">Portrait</button><button>Landscape</button>
+              </div>
+            </div>
+            <div class="drawer-field">
+              <span class="drawer-label">Pages</span>
+              <div class="drawer-segmented">
+                <button class="on">Paginated</button><button>Single</button>
+              </div>
+            </div>
+
+            <div class="drawer-margins">
+              <div class="drawer-margin"><span class="drawer-margin-lab">Top</span><span class="drawer-margin-val">0.5″</span></div>
+              <div class="drawer-margin"><span class="drawer-margin-lab">Right</span><span class="drawer-margin-val">0.5″</span></div>
+              <div class="drawer-margin"><span class="drawer-margin-lab">Bottom</span><span class="drawer-margin-val">0.5″</span></div>
+              <div class="drawer-margin"><span class="drawer-margin-lab">Left</span><span class="drawer-margin-val">0.5″</span></div>
+            </div>
+
+            <label class="drawer-check">
+              <span class="box">✓</span>
+              Include background graphics
+            </label>
+
+            <div class="drawer-save">
+              <button class="drawer-reset">Reset defaults</button>
+              <button class="drawer-save-preset">Save as preset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="foot">
+          <span>Saves locally · no uploads</span>
+          <a class="pro" href="#">Settings</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- notes -->
+  <div class="notes">
+    <div>
+      <h3>Why this works</h3>
+      <ul>
+        <li><strong>Cream paper as default.</strong> Every AI extension is dark+glow. A warm light mode is an immediate differentiator — and on-brand for a tool literally named <em>PageMint</em>.</li>
+        <li><strong>Serif wordmark.</strong> Fraunces (italic <em>P</em>, roman <em>PageMint</em>, tiny red dot) looks like a masthead, not a SaaS logo. Costs you nothing and carries the whole brand.</li>
+        <li><strong>Black button, mint chip.</strong> Mint is used once, as the preset dot. The commit action is black ink. This reads as confident; emerald-CTA reads as template.</li>
+        <li><strong>Monospace for specs only.</strong> IBM Plex Mono for "A4 · Portrait · 0.5″ · 100%" and the footer signal — the places where technical honesty matters.</li>
+        <li><strong>One line of trust copy.</strong> "Saves locally · no uploads" replaces three collapsible sections. Same message, 3 words instead of 60.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>What changed from today</h3>
+      <ul>
+        <li><strong>Killed:</strong> PRESET / SAVED SETTINGS / DELIVERY metric card. Its info now lives in the header chip and the monospace specs line.</li>
+        <li><strong>Killed:</strong> "Before you export", "Browser-print limits", "Local-first permissions" accordions. Move to the options page under "Help" if any survive at all.</li>
+        <li><strong>Replaced:</strong> "Save this page as PDF / PageMint prepares the active tab..." → <em>"Print this page &amp; save it."</em> with a tab-context card showing <em>what</em> you're saving.</li>
+        <li><strong>Added:</strong> Tab context card with favicon + title + host. Users actually want confirmation of which page will be exported — the current popup omits this entirely.</li>
+        <li><strong>Added:</strong> <span class="kbd">⏎</span> affordance on the primary button. Pressing Return in the popup exports. Cheap power-user win Web to PDF doesn't have.</li>
+        <li><strong>Added:</strong> Discreet Settings link in the footer so users can reach preferences without polluting the utility experience.</li>
+      </ul>
+
+      <h3 style="margin-top:28px;">Copy set</h3>
+      <ul>
+        <li><strong>Headline:</strong> "Print this page &amp; save it." — active verb, no "PDF" (the button says PDF; redundant). The italic "<em>&amp; save it.</em>" adds voice.</li>
+        <li><strong>Primary button:</strong> "Export" + <span class="kbd">⏎</span>. Single word. Not "Export current tab" — the tab card above already tells you which tab.</li>
+        <li><strong>Footer:</strong> "Saves locally · no uploads" — replaces the whole Local-first permissions accordion.</li>
+        <li><strong>Preset chip:</strong> "Exact" — one word, not "EXACT PDF". Preset names should be nouns the user can read like a word.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot-brand">
+    <span>PageMint · Press</span>
+    <span>Proposal · V1</span>
+  </div>
+
+</div>
+
+</body>
+</html>

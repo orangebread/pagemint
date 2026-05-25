@@ -1,0 +1,47 @@
+# macOS metadata
+.DS_Store
+
+# Dependencies and package managers
+node_modules/
+.pnpm-store/
+
+# Local environment files. Keep examples tracked.
+.env
+.env.*
+!.env.example
+apps/*/.env
+apps/*/.env.*
+!apps/*/.env.example
+
+# Build artifacts
+.turbo/
+.vercel/
+apps/*/.vercel/
+dist/
+.next/
+.output/
+.wxt/
+coverage/
+.data/
+*.tsbuildinfo
+
+# Local agent and orchestration artifacts
+.ai/
+.claude/
+.codex/
+.pi/
+.superpowers/
+AGENTS.md
+taskplane-tasks/
+docs/archive/
+docs/superpowers/
+apps/*/.claude/
+
+# Demo render intermediates only — the *published* GIF/MP4 in
+# apps/site/public/demo/ and apps/extension/public/demo/ ARE tracked so the
+# site (Vercel) and the extension (CWS zip) ship with the demo baked in.
+# Regenerate via `pnpm --filter @pagemint/demo-video build:and:publish`.
+
+# Playwright MCP scratch output (screenshots, snapshots, console logs)
+.playwright-mcp/
+/*.png

@@ -1,0 +1,27 @@
+{
+  "name": "@pagemint/render-core",
+  "version": "0.1.8",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "test": "node --import ../../tests/setup-env.mjs --loader ../../tests/loader.mjs --test ../../tests/unit/exact-export-core.test.ts ../../tests/unit/exact-export-high-fidelity-core.test.ts ../../tests/unit/exact-export-print-preparation.test.ts ../../tests/unit/managed-asset-history-core.test.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@pagemint/shared-types": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

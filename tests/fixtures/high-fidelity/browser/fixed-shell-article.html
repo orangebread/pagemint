@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fixed Shell Fixture</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Georgia, serif;
+        background: #f5f0e6;
+        color: #201810;
+      }
+
+      header {
+        position: fixed;
+        inset: 0 0 auto 0;
+        padding: 16px 24px;
+        background: rgba(255, 255, 255, 0.92);
+        border-bottom: 1px solid rgba(32, 24, 16, 0.12);
+      }
+
+      .fixed-shell {
+        position: fixed;
+        inset: 0;
+        overflow: auto;
+      }
+
+      main {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 112px 24px 64px;
+      }
+
+      article {
+        background: #fffdf9;
+        border: 1px solid rgba(32, 24, 16, 0.08);
+        border-radius: 24px;
+        padding: 40px 48px;
+        box-shadow: 0 24px 80px rgba(32, 24, 16, 0.08);
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: 42px;
+        line-height: 1.1;
+      }
+
+      p {
+        margin: 0 0 20px;
+        font-size: 19px;
+        line-height: 1.75;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        margin: 32px 0;
+        border-radius: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Fixture chrome</header>
+    <div class="fixed-shell">
+      <main>
+        <article>
+          <h1>Fixed Shell Fixture</h1>
+          <img
+            alt="Decorative export fixture"
+            loading="lazy"
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='720'%3E%3Crect width='1200' height='720' fill='%23d8c7a4'/%3E%3Ctext x='80' y='360' font-size='72' font-family='Georgia' fill='%23201810'%3EHigh fidelity fixture%3C/text%3E%3C/svg%3E"
+          />
+          <p>PageMint should preserve this article as a stable paginated export without repeating the fixed header chrome or losing the main article container.</p>
+          <p>This fixture exists to exercise the browser boundary rather than the exact visual output, so the content is intentionally simple but long enough to trigger meaningful DOM preparation.</p>
+          <p>The export path still needs a real page, real scripting injection, and a real Chrome DevTools Protocol session; otherwise we only prove that our mocks agree with themselves.</p>
+          <p>A production browser harness is supposed to catch exactly the failures that mocked executeScript calls hide, including context loss, navigation drift, and malformed page-state returns.</p>
+        </article>
+      </main>
+    </div>
+  </body>
+</html>

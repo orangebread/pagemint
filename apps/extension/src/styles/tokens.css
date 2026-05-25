@@ -1,0 +1,80 @@
+/*
+ * PageMint — Press identity design tokens.
+ *
+ * Single source of truth for the extension surfaces. Consumed by
+ * popup.css and options.css via `@import url('../../styles/tokens.css')`.
+ * The marketing site keeps its own copy in app/globals.css (kept in lockstep
+ * by convention; the two bundlers do not share a CSS module boundary).
+ */
+
+:root {
+  /* Light palette — cream paper, warm ink, mint accent.
+     --pm-cream-3 and --pm-mint are kept in lockstep with app/globals.css
+     (site-only consumers today); do not prune without checking the site. */
+  --pm-cream:     #F4EEE1;
+  --pm-cream-2:   #ECE4D1;
+  --pm-cream-3:   #E5DDCA;
+  --pm-ink:       #17130E;
+  --pm-ink-2:     #3A3328;
+  --pm-ink-3:     #766B58;
+  --pm-rule:      #D8CFB9;
+  --pm-mint:      #B8D4BE;
+  --pm-mint-deep: #4A7A5A;
+
+  /* Dark palette — deep ink bg, warm off-cream ink.
+     ink-2/ink-3/mint brightened 2026-05 for AAA legibility on dark surfaces;
+     mirror exactly in apps/site/app/globals.css inline hex. */
+  --pm-dark-bg:      #14110A;
+  --pm-dark-surface: #1C1913;
+  --pm-dark-ink:     #F4ECD7;
+  --pm-dark-ink-2:   #D9CCAE;
+  --pm-dark-ink-3:   #B0A488;
+  --pm-dark-rule:    #2D2822;
+  --pm-dark-mint:    #80AB8E;
+
+  /* Type stacks — @fontsource packages provide 'Fraunces', 'IBM Plex Sans', 'IBM Plex Mono' */
+  --pm-serif: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+  --pm-sans:  'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --pm-mono:  'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Default color-scheme — matches the light palette above. The bootstrap
+     script in popup/options index.html sets data-theme + data-os-dark on
+     <html> before first paint; the rules below flip color-scheme so native
+     form controls (scrollbars, <select> option panels) render in sync.
+     accent-color tints native checkbox/radio fills so they match the
+     brand mint instead of the OS default (macOS cyan, Windows blue). */
+  color-scheme: light;
+  accent-color: var(--pm-mint-deep);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  accent-color: var(--pm-mint-deep);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  accent-color: var(--pm-dark-mint);
+}
+
+html[data-theme="auto"][data-os-dark] {
+  color-scheme: dark;
+  accent-color: var(--pm-dark-mint);
+}
+
+/* Flip neutral tokens at the html level (specificity 0,1,1) in dark mode so
+   any class still consuming var(--pm-ink*), var(--pm-cream*), or
+   var(--pm-rule) auto-adapts. Mint vars (--pm-mint, --pm-mint-deep) are
+   intentionally NOT flipped — they're brand accent values. Mint-bg panels
+   that need dark-on-mint text re-pin the neutrals locally inside their
+   own dark override. Mirrors apps/site/app/globals.css. */
+html[data-theme="dark"],
+html[data-theme="auto"][data-os-dark] {
+  --pm-cream:   var(--pm-dark-bg);
+  --pm-cream-2: var(--pm-dark-surface);
+  --pm-cream-3: var(--pm-dark-rule);
+  --pm-ink:     var(--pm-dark-ink);
+  --pm-ink-2:   var(--pm-dark-ink-2);
+  --pm-ink-3:   var(--pm-dark-ink-3);
+  --pm-rule:    var(--pm-dark-rule);
+}

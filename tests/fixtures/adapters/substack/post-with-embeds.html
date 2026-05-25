@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Substack Embed Fixture</title>
+  </head>
+  <body>
+    <nav class="publisher-nav">Navigation</nav>
+    <main>
+      <article data-post-id="fixture-embed" class="available-content">
+        <h1>Embedded Post Fixture</h1>
+        <p>This article fixture includes embeds, pull quotes, and enough text density to exercise the adapter root selectors.</p>
+        <blockquote>A quote block that should stay inside the article scope.</blockquote>
+        <div class="embed-wrap">
+          <iframe title="embed" src="https://example.com/embed"></iframe>
+        </div>
+        <p>Additional body text keeps the article candidate confidently above the small-root threshold.</p>
+      </article>
+      <section data-comments-root>Discussion thread</section>
+      <section data-recommendations-root>Recommended posts</section>
+    </main>
+    <footer data-footer-root>App promo footer</footer>
+  </body>
+</html>

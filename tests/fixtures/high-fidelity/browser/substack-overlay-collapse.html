@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Substack Overlay Collapse Fixture</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Georgia, serif;
+        color: #221c14;
+        background: #fffaf1;
+      }
+
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 72px 28px 180px;
+        background: #fff;
+      }
+
+      article {
+        font-size: 20px;
+        line-height: 1.72;
+      }
+
+      h1 {
+        font-size: 42px;
+        line-height: 1.08;
+      }
+
+      .subscribe-bar,
+      .audio-player {
+        position: fixed;
+        left: 0;
+        right: 0;
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        font-family: Arial, sans-serif;
+        background: rgba(255, 255, 255, 0.97);
+        border-top: 1px solid #d8cbb5;
+        border-bottom: 1px solid #d8cbb5;
+      }
+
+      .subscribe-bar {
+        top: 0;
+        height: 68px;
+      }
+
+      .audio-player {
+        bottom: 0;
+        height: 96px;
+      }
+
+      .share-widget {
+        position: fixed;
+        right: 18px;
+        top: 180px;
+        width: 84px;
+        padding: 16px;
+        z-index: 99998;
+        font-family: Arial, sans-serif;
+        background: #fff;
+        border: 1px solid #d8cbb5;
+      }
+
+      @media print {
+        article {
+          display: none !important;
+        }
+
+        main {
+          min-height: 160px;
+          padding: 40px;
+        }
+
+        main::before {
+          content: "Substack controls";
+          font-family: Arial, sans-serif;
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="subscribe-bar" role="banner">Subscribe to keep reading</div>
+    <div class="share-widget" aria-label="share tools">Share Save Gift</div>
+    <main>
+      <article>
+        <h1>Scorpio Full Moon Horoscopes</h1>
+        <p>This fixture intentionally contains a long visible article below fixed subscribe, share, and media controls. The visible source has enough text and height that a one-page sparse PDF should be treated as suspicious for Whole page.</p>
+        <p>Readers expect the export to include the complete article body, not just the top viewport or floating chrome. PageMint should preserve the saved output for review while warning that Article is the better recovery route.</p>
+        <p>The moon rises over the article body with paragraphs, headings, and enough vertical distance to exceed the viewport many times. The exact wording is not important; the shape is a long readable page.</p>
+        <p>When a site print stylesheet collapses the article but leaves a small amount of page chrome, Chrome can still return a valid PDF. That valid PDF is not a trustworthy Whole page capture.</p>
+        <p>The quality snapshot sees visible source text before print preparation. The PDF sanity check sees a small one-page document. Together those signals identify the false-success output.</p>
+        <p>Article mode is intentionally outside this warning path because its content scope is scoped content, not full page. If Article succeeds or fails, it should use its own scoped-content contract.</p>
+        <p>More body text keeps the fixture tall enough for deterministic browser-boundary coverage. The paragraphs repeat practical prose rather than filler so text extraction and layout remain realistic.</p>
+        <p>More body text keeps the fixture tall enough for deterministic browser-boundary coverage. The paragraphs repeat practical prose rather than filler so text extraction and layout remain realistic.</p>
+        <p>More body text keeps the fixture tall enough for deterministic browser-boundary coverage. The paragraphs repeat practical prose rather than filler so text extraction and layout remain realistic.</p>
+        <p>More body text keeps the fixture tall enough for deterministic browser-boundary coverage. The paragraphs repeat practical prose rather than filler so text extraction and layout remain realistic.</p>
+        <p>More body text keeps the fixture tall enough for deterministic browser-boundary coverage. The paragraphs repeat practical prose rather than filler so text extraction and layout remain realistic.</p>
+        <p>More body text keeps the fixture tall enough for deterministic browser-boundary coverage. The paragraphs repeat practical prose rather than filler so text extraction and layout remain realistic.</p>
+      </article>
+    </main>
+    <div class="audio-player" aria-label="audio player controls">Play 00:00 Subscribe Share</div>
+  </body>
+</html>

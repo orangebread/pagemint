@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>PageMint — Red vs Mint dot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #F4EEE1;
+    --cream-2: #ECE4D1;
+    --ink: #17130E;
+    --ink-2: #3A3328;
+    --ink-3: #766B58;
+    --rule: #D8CFB9;
+    --red: #B73A2B;
+    --mint-deep: #4A7A5A;
+    --mint-mid: #6B9377;
+    --mint-bright: #5BB37A;
+  }
+  html, body {
+    margin: 0; padding: 0;
+    background: #E5DDCA;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .stage { padding: 56px 32px 96px; max-width: 1120px; margin: 0 auto; }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 40px; font-weight: 500; letter-spacing: -0.02em;
+    margin: 0 0 8px;
+    font-variation-settings: 'opsz' 144;
+  }
+  h1 em { font-style: italic; font-weight: 400; }
+  .sub { color: var(--ink-3); font-size: 14px; line-height: 1.6; max-width: 640px; margin: 0 0 56px; }
+
+  h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 500;
+    margin: 0 0 8px;
+  }
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px; font-weight: 500; letter-spacing: -0.01em;
+    margin: 0 0 24px;
+    font-variation-settings: 'opsz' 144;
+  }
+  p.note {
+    font-size: 13.5px; color: var(--ink-2); line-height: 1.65;
+    margin: 0 0 24px; max-width: 720px;
+  }
+  section { margin-bottom: 56px; }
+
+  /* the stamp */
+  .stamp {
+    --size: 128px;
+    --frame: var(--ink);
+    --paper: var(--cream);
+    --ink-color: var(--ink);
+    --dot: var(--red);
+    width: var(--size); height: var(--size);
+    border-radius: calc(var(--size) * 0.18);
+    background: var(--paper);
+    border: calc(var(--size) * 0.025) solid var(--frame);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .stamp::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(24,18,10,0.045), transparent 55%),
+      radial-gradient(ellipse at 70% 80%, rgba(24,18,10,0.05), transparent 55%);
+    pointer-events: none;
+  }
+  .stamp .glyph {
+    font-family: 'Fraunces', serif;
+    font-style: italic; font-weight: 600;
+    color: var(--ink-color); line-height: 1;
+    font-size: calc(var(--size) * 0.78);
+    letter-spacing: -0.04em;
+    transform: translate(calc(var(--size) * -0.03), calc(var(--size) * 0.03));
+    font-variation-settings: 'opsz' 144;
+    z-index: 1;
+  }
+  .stamp .dot {
+    position: absolute;
+    width: calc(var(--size) * 0.07);
+    height: calc(var(--size) * 0.07);
+    background: var(--dot);
+    border-radius: 50%;
+    bottom: calc(var(--size) * 0.18);
+    right: calc(var(--size) * 0.16);
+    z-index: 2;
+  }
+  .stamp--dark {
+    --frame: #F1E9D5;
+    --paper: #14120E;
+    --ink-color: #F1E9D5;
+  }
+
+  /* size variants */
+  .stamp--128 { --size: 128px; }
+  .stamp--48  { --size: 48px;  border-width: 1.5px; }
+  .stamp--32  { --size: 32px;  border-width: 1.5px; border-radius: 6px; }
+  .stamp--16  { --size: 16px;  border-width: 1px;   border-radius: 3px; }
+  .stamp--16 .dot, .stamp--16::before { display: none; }
+  .stamp--16 .glyph { transform: translate(-0.5px, 1px); font-size: 13px; }
+  .stamp--32 .dot { display: none; }
+  .stamp--32::before { display: none; }
+  .stamp--32 .glyph { font-size: 25px; transform: translate(-1px, 1.5px); }
+
+  /* dot color variants */
+  .dot--red       { --dot: var(--red); }
+  .dot--mint-deep { --dot: var(--mint-deep); }
+  .dot--mint-mid  { --dot: var(--mint-mid); }
+  .dot--mint-br   { --dot: var(--mint-bright); }
+
+  /* layout */
+  .row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .tile {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 32px 24px 20px;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 14px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 8px 24px -12px rgba(24,18,10,.25);
+  }
+  .tile--dark { background: #14120E; }
+  .tile-lab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin-top: 4px;
+    text-align: center;
+  }
+  .tile--dark .tile-lab { color: #B9AE92; }
+  .tile-hex {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+  .tile--dark .tile-hex { color: #8E8472; }
+
+  /* in-context: small toolbar mock */
+  .chrome {
+    background: #DDD7C5;
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .chrome-lab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .toolbar {
+    background: #F2EDE0;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 8px 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .toolbar-url {
+    flex: 1;
+    background: rgba(0,0,0,0.05);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+  }
+  .toolbar-icons { display: flex; align-items: center; gap: 4px; padding: 0 4px; }
+  .toolbar-icons .ext {
+    width: 24px; height: 24px;
+    border-radius: 4px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .toolbar-icons .ext.placeholder { background: rgba(0,0,0,0.06); }
+  .toolbar-icons .ext.active-frame { box-shadow: 0 0 0 1.5px var(--ink) inset; }
+
+  /* size strip */
+  .size-strip {
+    display: flex; align-items: end; gap: 24px;
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 32px 28px;
+  }
+  .size-strip-col { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .size-strip-lab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .size-strip-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px; font-weight: 500; letter-spacing: -0.01em;
+    margin: 0 0 16px;
+    font-variation-settings: 'opsz' 144;
+  }
+
+  .verdict {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-top: 32px;
+  }
+  .verdict h3 { margin-top: 0; }
+  .verdict ul { margin: 0; padding-left: 18px; }
+  .verdict li { font-size: 13.5px; line-height: 1.7; color: var(--ink-2); }
+  .verdict strong { color: var(--ink); }
+
+  .foot {
+    margin-top: 64px; padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <h1>Dot color <em>— compare</em></h1>
+  <p class="sub">Red dot vs three mint candidates, side by side at the size that matters (128px) and in context (toolbar). Mint comes in three temperatures because "mint" is a wide range — the wrong shade reads either too pastel (Easter egg) or too saturated (Spotify).</p>
+
+  <!-- 128 grid -->
+  <section>
+    <h2>01 · Hero size · 128px on cream</h2>
+    <h3>Side by side at full size</h3>
+
+    <div class="row">
+      <div class="tile">
+        <div class="stamp stamp--128 dot--red"><span class="glyph">P</span><span class="dot"></span></div>
+        <span class="tile-lab">Red <span class="tile-hex">#B73A2B</span><br><em style="font-style:normal;color:var(--ink);">current pick</em></span>
+      </div>
+      <div class="tile">
+        <div class="stamp stamp--128 dot--mint-deep"><span class="glyph">P</span><span class="dot"></span></div>
+        <span class="tile-lab">Mint · deep <span class="tile-hex">#4A7A5A</span></span>
+      </div>
+      <div class="tile">
+        <div class="stamp stamp--128 dot--mint-mid"><span class="glyph">P</span><span class="dot"></span></div>
+        <span class="tile-lab">Mint · mid <span class="tile-hex">#6B9377</span></span>
+      </div>
+      <div class="tile">
+        <div class="stamp stamp--128 dot--mint-br"><span class="glyph">P</span><span class="dot"></span></div>
+        <span class="tile-lab">Mint · bright <span class="tile-hex">#5BB37A</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- on dark -->
+  <section>
+    <h2>02 · On dark</h2>
+    <h3>How each holds up at night</h3>
+
+    <div class="row">
+      <div class="tile tile--dark">
+        <div class="stamp stamp--128 stamp--dark dot--red"><span class="glyph">P</span><span class="dot"></span></div>
+        <span class="tile-lab">Red <span class="tile-hex">#B73A2B</span></span>
+      </div>
+      <div class="tile tile--dark">
+        <div class="stamp stamp--128 stamp--dark dot--mint-deep"><span class="glyph">P</span><span class="dot"></span></div>
+        <span class="tile-lab">Mint · deep <span class="tile-hex">#4A7A5A</span></span>
+      </div>
+      <div class="tile tile--dark">
+        <div class="stamp stamp--128 stamp--dark dot--mint-mid"><span class="glyph">P</span><span class="dot"></span></div>
+        <span class="tile-lab">Mint · mid <span class="tile-hex">#6B9377</span></span>
+      </div>
+      <div class="tile tile--dark">
+        <div class="stamp stamp--128 stamp--dark dot--mint-br"><span class="glyph">P</span><span class="dot"></span></div>
+        <span class="tile-lab">Mint · bright <span class="tile-hex">#5BB37A</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- size strip — at 48px the dot still matters -->
+  <section>
+    <h2>03 · Smaller sizes</h2>
+    <h3>The dot at 48px (still visible) and 32/16 (it disappears)</h3>
+    <p class="note">Reminder: at 32px and 16px the dot drops entirely — only the italic <em>P</em> remains. So the dot color choice is really about the 48px+ range: extension page, settings, store hero, in-product wordmark.</p>
+
+    <div class="row" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="size-strip">
+        <div class="size-strip-col"><div class="stamp stamp--48 dot--red"><span class="glyph">P</span><span class="dot"></span></div><span class="size-strip-lab">48</span></div>
+        <div class="size-strip-col"><div class="stamp stamp--32 dot--red"><span class="glyph">P</span></div><span class="size-strip-lab">32</span></div>
+        <div class="size-strip-col"><div class="stamp stamp--16 dot--red"><span class="glyph">P</span></div><span class="size-strip-lab">16</span></div>
+      </div>
+      <div class="size-strip">
+        <div class="size-strip-col"><div class="stamp stamp--48 dot--mint-deep"><span class="glyph">P</span><span class="dot"></span></div><span class="size-strip-lab">48</span></div>
+        <div class="size-strip-col"><div class="stamp stamp--32 dot--mint-deep"><span class="glyph">P</span></div><span class="size-strip-lab">32</span></div>
+        <div class="size-strip-col"><div class="stamp stamp--16 dot--mint-deep"><span class="glyph">P</span></div><span class="size-strip-lab">16</span></div>
+      </div>
+      <div class="size-strip">
+        <div class="size-strip-col"><div class="stamp stamp--48 dot--mint-mid"><span class="glyph">P</span><span class="dot"></span></div><span class="size-strip-lab">48</span></div>
+        <div class="size-strip-col"><div class="stamp stamp--32 dot--mint-mid"><span class="glyph">P</span></div><span class="size-strip-lab">32</span></div>
+        <div class="size-strip-col"><div class="stamp stamp--16 dot--mint-mid"><span class="glyph">P</span></div><span class="size-strip-lab">16</span></div>
+      </div>
+      <div class="size-strip">
+        <div class="size-strip-col"><div class="stamp stamp--48 dot--mint-br"><span class="glyph">P</span><span class="dot"></span></div><span class="size-strip-lab">48</span></div>
+        <div class="size-strip-col"><div class="stamp stamp--32 dot--mint-br"><span class="glyph">P</span></div><span class="size-strip-lab">32</span></div>
+        <div class="size-strip-col"><div class="stamp stamp--16 dot--mint-br"><span class="glyph">P</span></div><span class="size-strip-lab">16</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- toolbar context — note: dot doesn't show at 16, but extension page (48) does -->
+  <section>
+    <h2>04 · Extension management page</h2>
+    <h3>This is where the dot actually competes (chrome://extensions, ~48px)</h3>
+    <p class="note">The toolbar sees only the dot-less 16px. But the chrome://extensions page renders at ~48px — and that's where users actually stop and look at your icon. Here's all four marks together at that size.</p>
+
+    <div class="chrome" style="background:#F2EDE0; padding:24px;">
+      <span class="chrome-lab">chrome://extensions</span>
+      <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px;">
+        <div style="background:#fff; border:1px solid var(--rule); border-radius:8px; padding:14px; display:flex; gap:12px; align-items:center;">
+          <div class="stamp stamp--48 dot--red"><span class="glyph">P</span><span class="dot"></span></div>
+          <div>
+            <div style="font-weight:600; font-size:13px;">PageMint</div>
+            <div style="font-size:11px; color:var(--ink-3); font-family:'IBM Plex Mono',monospace;">Red · current</div>
+          </div>
+        </div>
+        <div style="background:#fff; border:1px solid var(--rule); border-radius:8px; padding:14px; display:flex; gap:12px; align-items:center;">
+          <div class="stamp stamp--48 dot--mint-deep"><span class="glyph">P</span><span class="dot"></span></div>
+          <div>
+            <div style="font-weight:600; font-size:13px;">PageMint</div>
+            <div style="font-size:11px; color:var(--ink-3); font-family:'IBM Plex Mono',monospace;">Mint · deep</div>
+          </div>
+        </div>
+        <div style="background:#fff; border:1px solid var(--rule); border-radius:8px; padding:14px; display:flex; gap:12px; align-items:center;">
+          <div class="stamp stamp--48 dot--mint-mid"><span class="glyph">P</span><span class="dot"></span></div>
+          <div>
+            <div style="font-weight:600; font-size:13px;">PageMint</div>
+            <div style="font-size:11px; color:var(--ink-3); font-family:'IBM Plex Mono',monospace;">Mint · mid</div>
+          </div>
+        </div>
+        <div style="background:#fff; border:1px solid var(--rule); border-radius:8px; padding:14px; display:flex; gap:12px; align-items:center;">
+          <div class="stamp stamp--48 dot--mint-br"><span class="glyph">P</span><span class="dot"></span></div>
+          <div>
+            <div style="font-weight:600; font-size:13px;">PageMint</div>
+            <div style="font-size:11px; color:var(--ink-3); font-family:'IBM Plex Mono',monospace;">Mint · bright</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- verdict -->
+  <div class="verdict">
+    <h3>My read</h3>
+    <ul>
+      <li><strong>Red</strong> — Strongest signal. Reads as a printer's registration mark, gives the brand a pulse. Risk: feels Swiss/editorial, not "minty."</li>
+      <li><strong>Mint · deep (#4A7A5A)</strong> — Most cohesive with the name. Reads as a tasteful brand color, not a candy. <em>If you go mint, this is the one.</em> The deep tone holds against cream without disappearing and doesn't feel like a 2010s startup.</li>
+      <li><strong>Mint · mid (#6B9377)</strong> — Pleasant but quiet. The dot loses presence at 48px and the brand loses its accent. Skip.</li>
+      <li><strong>Mint · bright (#5BB37A)</strong> — Drifts into Spotify/Robinhood territory. Saturated mint = exactly the AI palette we just escaped. Skip.</li>
+    </ul>
+    <p style="font-size:13.5px; line-height:1.7; color:var(--ink-2); margin: 16px 0 0;">
+      <strong>Recommendation:</strong> If brand cohesion matters more (it usually does for a small product trying to differentiate), <strong>Mint · deep</strong>. If pulse matters more (a single warm accent that says "this is alive"), keep <strong>Red</strong>. There's no wrong answer — both clear the AI-slop bar. Pick the one that matches how you want PageMint to feel: confident-quiet (mint) or confident-warm (red).
+    </p>
+  </div>
+
+  <div class="foot">
+    <span>PageMint · Press</span>
+    <span>Dot study · V1</span>
+  </div>
+
+</div>
+
+</body>
+</html>

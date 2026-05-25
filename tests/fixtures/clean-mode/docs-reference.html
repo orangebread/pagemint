@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Auth Token Rotation</title>
+    <style>
+      body { margin: 0; font: 15px/1.65 system-ui, sans-serif; color: #141414; }
+      .shell { display: grid; grid-template-columns: 240px minmax(0, 760px); gap: 32px; width: min(1120px, 100% - 48px); margin: 0 auto; }
+      nav { padding: 24px 0; }
+      main { padding: 24px 0 48px; }
+      article { background: white; padding: 32px; box-shadow: 0 12px 30px rgba(0,0,0,.06); }
+      pre { background: #0f1720; color: #f2f5f8; padding: 16px; overflow: auto; }
+      .warning { border-left: 4px solid #b26a00; background: #fff7e8; padding: 16px; }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <nav aria-label="Docs">
+        Overview<br />Authentication<br />Errors<br />SDKs<br />CLI
+      </nav>
+      <main>
+        <article>
+          <h1>Rotate Authentication Tokens Safely</h1>
+          <p>Token rotation works well for clean mode because the page is article-like even though it is documentation, not editorial content. There is one dominant reading column and the navigation sits beside it as obvious shell chrome.</p>
+          <div class="warning" data-callout="warning">
+            Rotate in a staggered window so no client loses access during the cutover.
+          </div>
+          <h2>Recommended sequence</h2>
+          <ol>
+            <li>Create the replacement token.</li>
+            <li>Deploy it behind a feature flag.</li>
+            <li>Observe auth success and revoke the old token.</li>
+          </ol>
+          <h2>CLI example</h2>
+          <pre><code>pagemint tokens rotate --service auth-api --window 15m</code></pre>
+          <p>Documentation pages like this should still preserve headings, lists, warnings, and code blocks. Clean mode is not only for blogs.</p>
+        </article>
+      </main>
+    </div>
+  </body>
+</html>

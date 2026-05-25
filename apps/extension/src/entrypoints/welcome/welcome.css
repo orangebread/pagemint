@@ -1,0 +1,211 @@
+:root {
+  color-scheme: light;
+  --pm-cream: #F4EEE1;
+  --pm-cream-2: #ECE4D1;
+  --pm-cream-3: #E5DDCA;
+  --pm-ink: #17130E;
+  --pm-ink-2: #3A3328;
+  --pm-ink-3: #766B58;
+  --pm-rule: #D8CFB9;
+  --pm-mint: #B8D4BE;
+  --pm-mint-deep: #4A7A5A;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--pm-cream);
+  color: var(--pm-ink);
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.welcomePage {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 56px 32px 48px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pm-mint-deep);
+  font-weight: 600;
+  margin: 0;
+}
+
+.title {
+  font-family: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 12px 0 12px;
+}
+
+.lead {
+  font-size: 16px;
+  color: var(--pm-ink-2);
+  max-width: 540px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.chipRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 1px solid var(--pm-rule);
+  border-radius: 999px;
+  font-size: 11px;
+  color: var(--pm-ink-3);
+  background: var(--pm-cream);
+}
+
+.rule {
+  border: 0;
+  border-top: 1px solid var(--pm-rule);
+  margin: 32px 0;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 28px;
+}
+
+.stepMedallion {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--pm-rule);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces Variable', Georgia, serif;
+  font-style: italic;
+  font-size: 22px;
+  color: var(--pm-mint-deep);
+  background: var(--pm-cream-2);
+}
+
+.stepTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+
+.stepText {
+  font-size: 14px;
+  color: var(--pm-ink-2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.stepFigure {
+  margin-top: 14px;
+  padding: 16px;
+  background: var(--pm-cream-2);
+  border: 1px solid var(--pm-rule);
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* Live capture demo — sourced from apps/demo-video/out/pagemint-demo.mp4
+   via `pnpm --filter @pagemint/demo-video publish:extension`. */
+.demoVideoFigure {
+  margin: 20px 0 8px;
+  padding: 12px;
+  background: var(--pm-cream-2);
+  border: 1px solid var(--pm-rule);
+  border-radius: 10px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 12px 36px rgba(23, 19, 14, 0.08);
+}
+
+.demoVideoTag {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 2px 10px;
+  font-family: var(--pm-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pm-ink-3);
+  background: var(--pm-cream-3);
+  border: 1px solid var(--pm-rule);
+  border-radius: 999px;
+}
+
+.demoVideoMedia {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--pm-rule);
+  background: var(--pm-cream);
+}
+
+.demoVideoCaption {
+  margin: 10px 2px 2px;
+  font-size: 13px;
+  color: var(--pm-ink-3);
+  line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demoVideoMedia {
+    /* Honor user motion preference: surface a poster frame instead of looping. */
+    animation: none;
+  }
+}
+
+.shortcut {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  margin: 0 4px;
+}
+
+.shortcut kbd {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 12px;
+  padding: 2px 6px;
+  border: 1px solid var(--pm-rule);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--pm-cream-2);
+  color: var(--pm-ink);
+}
+
+.welcomeFooter {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--pm-rule);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--pm-ink-3);
+}
+
+.footerLinks a {
+  color: var(--pm-mint-deep);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

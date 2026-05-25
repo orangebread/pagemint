@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>PageMint — Icon System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #F4EEE1;
+    --cream-2: #ECE4D1;
+    --ink: #17130E;
+    --ink-2: #3A3328;
+    --ink-3: #766B58;
+    --rule: #D8CFB9;
+    --mint: #B8D4BE;
+    --mint-ink: #1F3B29;
+    --mint-deep: #4A7A5A;
+  }
+  html, body {
+    margin: 0; padding: 0;
+    background: #E5DDCA;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .stage { padding: 56px 32px 96px; max-width: 1120px; margin: 0 auto; }
+
+  h1.title {
+    font-family: 'Fraunces', serif;
+    font-size: 40px; font-weight: 500; letter-spacing: -0.02em;
+    margin: 0 0 8px;
+    font-variation-settings: 'opsz' 144;
+  }
+  h1.title em { font-style: italic; font-weight: 400; }
+  .sub { color: var(--ink-3); font-size: 14px; line-height: 1.6; max-width: 640px; margin: 0 0 56px; }
+
+  section { margin-bottom: 64px; }
+  h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-3); font-weight: 500;
+    margin: 0 0 8px;
+  }
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px; font-weight: 500; letter-spacing: -0.01em;
+    margin: 0 0 24px;
+    font-variation-settings: 'opsz' 144;
+  }
+  p.note {
+    font-size: 13.5px; color: var(--ink-2); line-height: 1.65;
+    margin: 0 0 24px; max-width: 720px;
+  }
+
+  /* ============================================================ */
+  /* Master mark — the stamp                                      */
+  /* ============================================================ */
+  .row { display: grid; gap: 24px; }
+  .row-3 { grid-template-columns: repeat(3, 1fr); }
+  .row-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .tile {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 32px 24px 20px;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 14px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 8px 24px -12px rgba(24,18,10,.25);
+  }
+  .tile-lab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin-top: 4px;
+  }
+
+  /* the stamp mark */
+  .stamp {
+    --size: 128px;
+    --frame: var(--ink);
+    --paper: var(--cream);
+    --ink-color: var(--ink);
+    --dot: var(--mint-deep);
+    width: var(--size); height: var(--size);
+    border-radius: calc(var(--size) * 0.18);
+    background: var(--paper);
+    border: calc(var(--size) * 0.025) solid var(--frame);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  /* paper grain */
+  .stamp::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(24,18,10,0.045), transparent 55%),
+      radial-gradient(ellipse at 70% 80%, rgba(24,18,10,0.05), transparent 55%);
+    pointer-events: none;
+  }
+  .stamp .glyph {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--ink-color);
+    line-height: 1;
+    font-size: calc(var(--size) * 0.78);
+    letter-spacing: -0.04em;
+    transform: translate(calc(var(--size) * -0.03), calc(var(--size) * 0.03));
+    font-variation-settings: 'opsz' 144;
+    z-index: 1;
+  }
+  .stamp .dot {
+    position: absolute;
+    width: calc(var(--size) * 0.07);
+    height: calc(var(--size) * 0.07);
+    background: var(--dot);
+    border-radius: 50%;
+    bottom: calc(var(--size) * 0.18);
+    right: calc(var(--size) * 0.16);
+    z-index: 2;
+  }
+
+  /* dark variant */
+  .stamp--dark {
+    --frame: #F1E9D5;
+    --paper: #14120E;
+    --ink-color: #F1E9D5;
+    --dot: #B73A2B;
+  }
+  /* mint variant — for the favicon-on-paper context */
+  .stamp--mint-dot {
+    --dot: #4A7A5A;
+  }
+  /* "minted" — solid ink on cream, classic stamp */
+  .stamp--solid {
+    --paper: var(--ink);
+    --ink-color: var(--cream);
+    --frame: var(--ink);
+    --dot: var(--mint-deep);
+  }
+  /* monochrome — for store badges, favicons in monochrome mode */
+  .stamp--mono {
+    --paper: transparent;
+    --frame: var(--ink);
+    --ink-color: var(--ink);
+    --dot: var(--ink);
+  }
+
+  /* size variants */
+  .stamp--128 { --size: 128px; }
+  .stamp--64  { --size: 64px;  border-width: 2px; }
+  .stamp--48  { --size: 48px;  border-width: 1.5px; }
+  .stamp--32  { --size: 32px;  border-width: 1.5px; border-radius: 6px; }
+  .stamp--16  { --size: 16px;  border-width: 1px;   border-radius: 3px; }
+
+  /* at 16px, the dot disappears (too small to read) */
+  .stamp--16 .dot, .stamp--16::before { display: none; }
+  .stamp--16 .glyph { transform: translate(-0.5px, 1px); font-size: 13px; }
+  .stamp--32 .dot { display: none; }
+  .stamp--32::before { display: none; }
+  .stamp--32 .glyph { font-size: 25px; transform: translate(-1px, 1.5px); }
+
+  /* ============================================================ */
+  /* Chrome toolbar mock                                          */
+  /* ============================================================ */
+  .chrome {
+    background: #DDD7C5;
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .chrome-lab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .toolbar {
+    background: #F2EDE0;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 8px 10px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .toolbar.dark {
+    background: #1F1C16;
+    border-color: #2D2822;
+  }
+  .toolbar-url {
+    flex: 1;
+    background: rgba(0,0,0,0.05);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+  }
+  .toolbar.dark .toolbar-url {
+    background: rgba(255,255,255,0.05);
+    color: #B9AE92;
+  }
+  .toolbar-icons {
+    display: flex; align-items: center; gap: 4px;
+    padding: 0 4px;
+  }
+  .toolbar-icons .ext {
+    width: 24px; height: 24px;
+    border-radius: 4px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .toolbar-icons .ext.placeholder {
+    background: rgba(0,0,0,0.06);
+  }
+  .toolbar.dark .toolbar-icons .ext.placeholder {
+    background: rgba(255,255,255,0.06);
+  }
+  .toolbar-icons .ext.active-frame {
+    box-shadow: 0 0 0 1.5px var(--ink) inset;
+  }
+  .toolbar.dark .toolbar-icons .ext.active-frame {
+    box-shadow: 0 0 0 1.5px #F1E9D5 inset;
+  }
+
+  /* ============================================================ */
+  /* Wordmark lockups                                             */
+  /* ============================================================ */
+  .lockup {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 36px 32px;
+    display: flex; align-items: center; gap: 16px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 8px 24px -12px rgba(24,18,10,.2);
+  }
+  .lockup-mark {
+    flex: none;
+  }
+  .lockup-name {
+    font-family: 'Fraunces', serif;
+    font-size: 36px; line-height: 1;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+    font-variation-settings: 'opsz' 144;
+    display: flex; align-items: baseline; gap: 4px;
+  }
+  .lockup-name em { font-style: italic; font-weight: 600; }
+  .lockup-name .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--mint-deep);
+    transform: translateY(-2px);
+    margin-left: 1px;
+  }
+  .lockup-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin-top: 8px;
+  }
+  .lockup--stack { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .lockup--dark { background: #14120E; color: #F1E9D5; }
+  .lockup--dark .lockup-name { color: #F1E9D5; }
+  .lockup--dark .lockup-tag { color: #B9AE92; }
+
+  /* favicon zoom (the killer test) */
+  .zoom-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    align-items: end;
+  }
+  .zoom-col {
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    padding: 24px 12px 16px;
+    background: var(--cream);
+    border-radius: 12px;
+  }
+  .zoom-lab {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  /* store hero */
+  .store {
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%);
+    border-radius: 16px;
+    padding: 56px 48px;
+    display: flex; align-items: center; gap: 48px;
+  }
+  .store-text { flex: 1; }
+  .store-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--mint-deep); margin-bottom: 10px;
+  }
+  .store-h {
+    font-family: 'Fraunces', serif;
+    font-size: 56px; line-height: 1.02; letter-spacing: -0.025em;
+    font-weight: 500; margin: 0 0 18px;
+    font-variation-settings: 'opsz' 144;
+  }
+  .store-h em { font-style: italic; font-weight: 400; color: var(--ink-2); }
+  .store-sub {
+    font-size: 16px; line-height: 1.55; color: var(--ink-2);
+    max-width: 480px; margin: 0;
+  }
+
+  /* footer */
+  .foot {
+    margin-top: 80px; padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <h1 class="title">PageMint <em>— icon system</em></h1>
+  <p class="sub">The mark is a printer's stamp: italic Fraunces <em>P</em> on cream paper, framed in ink, finished with a single red registration dot. Reads as a press, not an app tile. Survives down to 16px by dropping the dot and grain — the italic <em>P</em> is the load-bearing element.</p>
+
+  <!-- ============ Master mark ============ -->
+  <section>
+    <h2>01 · Master mark</h2>
+    <h3>The stamp</h3>
+    <p class="note">Four expressions. Use <strong>Paper</strong> as the canonical mark — it's what ships on the Chrome Web Store hero, the website, and the in-product wordmark. <strong>Ink</strong> (solid) is for stickers, swag, and avatars. <strong>Night</strong> is for dark surfaces. <strong>Mono</strong> is for press kits and Chrome's automatic monochrome favicon mode.</p>
+
+    <div class="row row-4">
+      <div class="tile">
+        <div class="stamp stamp--128">
+          <span class="glyph">P</span>
+          <span class="dot"></span>
+        </div>
+        <span class="tile-lab">Paper · primary</span>
+      </div>
+      <div class="tile">
+        <div class="stamp stamp--128 stamp--solid">
+          <span class="glyph">P</span>
+          <span class="dot"></span>
+        </div>
+        <span class="tile-lab">Ink · solid</span>
+      </div>
+      <div class="tile" style="background:#14120E;">
+        <div class="stamp stamp--128 stamp--dark">
+          <span class="glyph">P</span>
+          <span class="dot"></span>
+        </div>
+        <span class="tile-lab" style="color:#B9AE92;">Night · dark UI</span>
+      </div>
+      <div class="tile">
+        <div class="stamp stamp--128 stamp--mono">
+          <span class="glyph">P</span>
+          <span class="dot"></span>
+        </div>
+        <span class="tile-lab">Mono · press / favicon</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Size system ============ -->
+  <section>
+    <h2>02 · Size system</h2>
+    <h3>Survives the toolbar</h3>
+    <p class="note">Chrome ships the toolbar icon at 16, 32, 48, and 128. The dot drops at 32 and below; the grain drops at 32 and below; the corner radius tightens proportionally. At 16px the icon is just the italic <em>P</em> in a thin-bordered square — and it still reads as PageMint, not as another rounded gradient blob.</p>
+
+    <div class="zoom-row">
+      <div class="zoom-col">
+        <div class="stamp stamp--128"><span class="glyph">P</span><span class="dot"></span></div>
+        <span class="zoom-lab">128 · store</span>
+      </div>
+      <div class="zoom-col">
+        <div class="stamp stamp--64"><span class="glyph">P</span><span class="dot"></span></div>
+        <span class="zoom-lab">64 · settings</span>
+      </div>
+      <div class="zoom-col">
+        <div class="stamp stamp--48"><span class="glyph">P</span><span class="dot"></span></div>
+        <span class="zoom-lab">48 · ext page</span>
+      </div>
+      <div class="zoom-col">
+        <div class="stamp stamp--32"><span class="glyph">P</span></div>
+        <span class="zoom-lab">32 · toolbar @2x</span>
+      </div>
+      <div class="zoom-col">
+        <div class="stamp stamp--16"><span class="glyph">P</span></div>
+        <span class="zoom-lab">16 · toolbar @1x</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Toolbar tests ============ -->
+  <section>
+    <h2>03 · In-context</h2>
+    <h3>The Chrome toolbar test</h3>
+    <p class="note">This is what your customer actually sees first, every time. The italic-P stamp sits next to a row of generic rounded shapes and reads as the only thing in the row that wasn't generated by an AI image tool.</p>
+
+    <div class="chrome">
+      <span class="chrome-lab">Light toolbar (default Chrome)</span>
+      <div class="toolbar">
+        <div class="toolbar-url">https://medium.com/article/maximizing-the-value-of-ultra-focused-planning</div>
+        <div class="toolbar-icons">
+          <span class="ext placeholder"></span>
+          <span class="ext placeholder"></span>
+          <span class="ext placeholder"></span>
+          <span class="ext active-frame">
+            <span class="stamp stamp--16"><span class="glyph">P</span></span>
+          </span>
+          <span class="ext placeholder"></span>
+        </div>
+      </div>
+
+      <span class="chrome-lab" style="margin-top:12px;">Dark toolbar (Brave / dark Chrome)</span>
+      <div class="toolbar dark">
+        <div class="toolbar-url">https://medium.com/article/maximizing-the-value-of-ultra-focused-planning</div>
+        <div class="toolbar-icons">
+          <span class="ext placeholder"></span>
+          <span class="ext placeholder"></span>
+          <span class="ext placeholder"></span>
+          <span class="ext active-frame">
+            <span class="stamp stamp--16 stamp--dark"><span class="glyph">P</span></span>
+          </span>
+          <span class="ext placeholder"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Wordmark lockups ============ -->
+  <section>
+    <h2>04 · Wordmark</h2>
+    <h3>Mark + name</h3>
+    <p class="note">Three lockups. <strong>Inline</strong> for the in-product header. <strong>Stacked</strong> for the website hero, the store listing, and the GitHub README. <strong>Tagline</strong> only when there's room — never crammed.</p>
+
+    <div class="row row-3">
+      <div class="lockup">
+        <span class="lockup-mark"><span class="stamp stamp--48"><span class="glyph">P</span></span></span>
+        <div class="lockup-name">PageMint<span class="dot"></span></div>
+      </div>
+
+      <div class="lockup lockup--stack">
+        <span class="lockup-mark"><span class="stamp stamp--64"><span class="glyph">P</span><span class="dot"></span></span></span>
+        <div>
+          <div class="lockup-name">PageMint<span class="dot"></span></div>
+          <div class="lockup-tag">Print · Save · Done</div>
+        </div>
+      </div>
+
+      <div class="lockup lockup--dark lockup--stack">
+        <span class="lockup-mark"><span class="stamp stamp--64 stamp--dark"><span class="glyph">P</span><span class="dot"></span></span></span>
+        <div>
+          <div class="lockup-name">PageMint</div>
+          <div class="lockup-tag">A small press for the web</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Store hero ============ -->
+  <section>
+    <h2>05 · Chrome Web Store hero</h2>
+    <h3>The 1280×800 listing tile</h3>
+    <p class="note">Single mark + a single sentence. Editorial restraint is the differentiator — the competitor's listing is a wall of features.</p>
+
+    <div class="store">
+      <div class="lockup-mark">
+        <span class="stamp stamp--128"><span class="glyph">P</span><span class="dot"></span></span>
+      </div>
+      <div class="store-text">
+        <div class="store-eyebrow">PageMint · v1</div>
+        <h2 class="store-h">A small press<br><em>for the web.</em></h2>
+        <p class="store-sub">Save any page as a clean PDF — paper, margins, scale, exactly as you set them. Local. Quiet. Fast. Free for what most people need.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Notes ============ -->
+  <section>
+    <h2>06 · Production notes</h2>
+    <h3>What to actually ship</h3>
+    <p class="note" style="max-width:820px;">
+      <strong>Files needed for the extension:</strong> 16, 32, 48, 128 PNG (light variant for default), plus a 128 PNG with the dark frame for the optional <code>theme_icons</code> manifest field — Chrome will swap based on the user's theme. Export as PNG with transparent background outside the rounded square.
+    </p>
+    <p class="note" style="max-width:820px;">
+      <strong>Files needed for the store / site:</strong> the four master marks at 1024px PNG + SVG, the three lockups at 2x PNG + SVG, the 1280×800 store hero, and one 440×280 small tile.
+    </p>
+    <p class="note" style="max-width:820px;">
+      <strong>Don't ship:</strong> a full-bleed gradient version, a monogram inside a circle, or a "P" with a download arrow through it. The italic <em>P</em> + frame + dot is the system. Resist embellishment.
+    </p>
+    <p class="note" style="max-width:820px;">
+      <strong>Implementation tip:</strong> these mockups use Fraunces as a web font. For the actual icon PNGs, render once at 1024px in a vector tool (Figma / Affinity) and downsample — don't rely on browser font rendering at 16px, it's too soft. The 16px file should be hand-tweaked: full-pixel border, italic <em>P</em> sitting on the baseline with manual hinting.
+    </p>
+  </section>
+
+  <div class="foot">
+    <span>PageMint · Press</span>
+    <span>Icon system · V1</span>
+  </div>
+
+</div>
+
+</body>
+</html>

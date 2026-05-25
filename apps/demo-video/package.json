@@ -1,0 +1,29 @@
+{
+  "name": "@pagemint/demo-video",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "description": "Remotion demo of the PageMint extension in action.",
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion render PageMintDemo out/pagemint-demo.mp4",
+    "build:gif": "remotion render PageMintDemo out/pagemint-demo.gif --codec=gif --image-format=png",
+    "build:gif:lean": "pnpm run build && ffmpeg -y -i out/pagemint-demo.mp4 -vf \"fps=15,scale=900:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=128[p];[s1][p]paletteuse=dither=bayer:bayer_scale=4\" -loop 0 out/pagemint-demo.gif",
+    "publish:site": "mkdir -p ../site/public/demo && cp out/pagemint-demo.gif ../site/public/demo/pagemint-demo.gif && echo 'Copied to apps/site/public/demo/pagemint-demo.gif'",
+    "publish:extension": "mkdir -p ../extension/public/demo && cp out/pagemint-demo.mp4 ../extension/public/demo/pagemint-demo.mp4 && echo 'Copied to apps/extension/public/demo/pagemint-demo.mp4'",
+    "publish:all": "pnpm run publish:site && pnpm run publish:extension",
+    "build:and:publish": "pnpm run build:gif:lean && pnpm run publish:all",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "@remotion/google-fonts": "^4.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "typescript": "^5.6.3"
+  }
+}
