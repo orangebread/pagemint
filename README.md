@@ -1,6 +1,11 @@
 <div align="center">
 
-# 🖨️ PageMint
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="apps/site/public/brand/night-1024.svg">
+  <img src="apps/site/public/brand/ink-1024.svg" alt="PageMint" width="160" height="160">
+</picture>
+
+# PageMint
 
 ### Save any web page as a **trustworthy PDF**. Locally. Free. Open source.
 
@@ -17,6 +22,12 @@
 
 </div>
 
+<br>
+
+<div align="center">
+  <img src="apps/extension/store-assets/hero-1280x800.png" alt="PageMint hero — save any page as a local PDF" width="100%">
+</div>
+
 ---
 
 ## ✨ Why PageMint?
@@ -26,6 +37,10 @@ Chrome's print-to-PDF breaks on the pages you actually need to save. Logged-in d
 **PageMint captures all of them in one click — locally, on your device, with no account, no upload, no telemetry.**
 
 Every line of code is in this repo. Every claim is verifiable.
+
+<div align="center">
+  <img src="apps/site/public/demo/pagemint-demo.gif" alt="PageMint capturing a web page and rendering it to a local PDF" width="720">
+</div>
 
 ---
 
@@ -41,6 +56,27 @@ Every line of code is in this repo. Every claim is verifiable.
 | 📜 **Local history** | Every PDF you've saved, searchable and re-exportable from your toolbar. |
 | ⚙️ **Full export control** | Paper size, margins, scaling, page breaks, headers — tune once, save your defaults. |
 | 🧹 **Remove elements** | Strip cookie banners, ads, or anything else before you capture. Session-local, never persisted. |
+
+---
+
+## 🖼️ A look inside
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="apps/extension/store-assets/screenshots/options-permissions-1280x800.png" alt="PageMint options — permissions baseline" width="100%"><br>
+      <sub><b>Permissions baseline</b> — three permissions, gated and on demand.</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="apps/extension/store-assets/screenshots/options-defaults-1280x800.png" alt="PageMint options — export defaults" width="100%"><br>
+      <sub><b>Export defaults</b> — paper, margins, scaling, headers.</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="apps/extension/store-assets/screenshots/options-history-1280x800.png" alt="PageMint options — local history" width="100%"><br>
+      <sub><b>Local history</b> — every PDF, searchable from the toolbar.</sub>
+    </td>
+  </tr>
+</table>
 
 ---
 
@@ -145,6 +181,11 @@ The public tree intentionally excludes local agent, orchestration, and private e
 ---
 
 <div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="apps/site/public/brand/night-1024.svg">
+  <img src="apps/site/public/brand/ink-1024.svg" alt="" width="48" height="48">
+</picture>
 
 **Built with care for the web that doesn't print right.**
 
