@@ -48,7 +48,7 @@ Every line of code is in this repo. Every claim is verifiable.
 
 | | |
 |---|---|
-| 🔑 **Logged-in pages** | Bank statements, Stripe dashboards, GA4 reports, Notion pages — anything behind a login wall. |
+| 🔑 **Logged-in pages** | Bank statements, finance dashboards, GA4 reports, Notion pages — anything behind a login wall. |
 | 🎯 **High Fidelity mode** | Uses Chrome DevTools Protocol locally to render pages exactly as you see them. No cut-off charts, no broken layouts. |
 | 🔒 **100% local-first** | Page content, screenshots, and PDFs never leave your device. No servers in the product path. |
 | 📖 **Open source** | MIT-licensed. Read it, fork it, ship your own build, audit the network behavior yourself. |
@@ -104,7 +104,7 @@ Output lands in `apps/extension/.output/chrome-mv3`. In Chrome:
 
 ## 🛡️ Privacy you can verify
 
-PageMint has **no hosted rendering, telemetry, account, checkout, entitlement, support-intake, or admin backend** in the open-source product.
+PageMint has **no hosted rendering, telemetry, account, checkout, support-intake, admin backend, or server-side feature gating** in the open-source product.
 
 - Page content, rendered PDFs, settings, and optional history stay in the browser profile where PageMint is installed.
 - No third-party analytics. No phone-home. No usage pings.

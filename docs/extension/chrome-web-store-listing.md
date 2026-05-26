@@ -2,7 +2,7 @@
 
 Status: ready for dashboard update after current repo verification passes
 Owner: PageMint launch operator
-Last prepared: 2026-05-25
+Last prepared: 2026-05-26
 
 This packet is the repo-side handoff for the Chrome Web Store listing. It keeps dashboard copy, privacy answers, permission justifications, assets, and external evidence boundaries in one place so the listing does not drift from the manifest or public site.
 
