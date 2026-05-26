@@ -1,46 +1,153 @@
-# PageMint
+<div align="center">
 
-Free MIT-licensed, local-first browser capture for saving web pages, including logged-in pages, as trustworthy PDFs.
+# 🖨️ PageMint
 
-## Current State
+### Save any web page as a **trustworthy PDF**. Locally. Free. Open source.
 
-PageMint is a fully local browser extension and static public site. The shipped product path is browser-local, accountless, telemetry-free, and open source.
+*A small press for the web.*
 
-Current baseline:
+[![License: MIT](https://img.shields.io/badge/license-MIT-1f6f4a.svg)](LICENSE)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-install-1f6f4a.svg)](https://chromewebstore.google.com/detail/pagemint/clkeafinfphgcfhenakanegeibknecbm)
+[![No telemetry](https://img.shields.io/badge/telemetry-zero-1f6f4a.svg)](#-privacy-you-can-verify)
+[![Made with TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6.svg)](https://www.typescriptlang.org/)
+[![Built with Next.js](https://img.shields.io/badge/Next.js-15-black.svg)](https://nextjs.org/)
+[![pnpm workspace](https://img.shields.io/badge/pnpm-workspace-f69220.svg)](https://pnpm.io/workspaces)
 
-- shared exact-export contracts in `packages/shared-types/`
-- render-core exact-export defaults, browser-print preparation helpers, and high-fidelity CDP helper primitives in `packages/render-core/`
-- an extension popup/background/options flow with local settings, optional local history, and path-aware trust/status copy
-- a default active-tab exact-export handoff into Chrome's native print-to-PDF flow
-- a High Fidelity path that uses Chrome DevTools Protocol locally, with `debugger` declared at install and actual debugger attach controlled by popup/options state
-- local PDF delivery through Chrome download/save APIs, with optional output-folder autosave in the Chrome support baseline
-- scoped-content controls and target isolation on the high-fidelity path
-- a session-local `Remove elements on page` assist on the active tab only
-- deterministic fixture and unit-test coverage under `tests/`
-- authenticated-page support within the active-tab local-first model
+[Install on Chrome](https://chromewebstore.google.com/detail/pagemint/clkeafinfphgcfhenakanegeibknecbm) · [Website](https://pagemint.space) · [Trust & permissions](https://pagemint.space/trust) · [Report an issue](https://github.com/orangebread/pagemint/issues)
 
-The default export path and High Fidelity path both stay local. Page content, rendered PDFs, settings, and optional history are not uploaded to PageMint.
+</div>
 
-## Verification
+---
 
-- `pnpm run repo:verify` is the strongest local production gate. It runs lint, repo-root tests/contracts, workspace package tests, typecheck, build, and the real browser-boundary suite.
-- `pnpm run repo:smoke` stays the lighter scaffold/authority check for planning and docs work.
-- If Playwright Chromium is not installed locally yet, run `pnpm run test:browser:install` once before `pnpm run repo:verify`.
+## ✨ Why PageMint?
 
-## Documentation
+Chrome's print-to-PDF breaks on the pages you actually need to save. Logged-in dashboards. Long receipts. Multi-page reports. Dynamic pages that load as you scroll.
 
-- `LICENSE` - MIT license
-- `docs/README.md` - docs map and status taxonomy
-- `docs/product/INDEX.md` - feature matrix and current status labels
-- `docs/product/exact-export/` - exact-export and high-fidelity product specs
-- `docs/product/capture/` - capture staging, share, and history specs
-- `docs/product/clean-mode/clean-mode.md`
-- `docs/product/selection/selection-and-broader-surfaces.md`
-- `docs/product/manual-editing/remove-elements-mode.md`
-- `docs/reference/ARCHITECTURE.md`
-- `docs/reference/ROADMAP.md`
-- `docs/reference/GTM.md`
+**PageMint captures all of them in one click — locally, on your device, with no account, no upload, no telemetry.**
 
-## Public Repo Hygiene
+Every line of code is in this repo. Every claim is verifiable.
 
-The public tree intentionally excludes local agent, orchestration, and private environment artifacts. Keep secrets in local `.env` files or host-managed secret stores, not in git.
+---
+
+## 🚀 Features
+
+| | |
+|---|---|
+| 🔑 **Logged-in pages** | Bank statements, Stripe dashboards, GA4 reports, Notion pages — anything behind a login wall. |
+| 🎯 **High Fidelity mode** | Uses Chrome DevTools Protocol locally to render pages exactly as you see them. No cut-off charts, no broken layouts. |
+| 🔒 **100% local-first** | Page content, screenshots, and PDFs never leave your device. No servers in the product path. |
+| 📖 **Open source** | MIT-licensed. Read it, fork it, ship your own build, audit the network behavior yourself. |
+| ✂️ **Selection capture** | Highlight a section of the page and save just that — not the whole document. |
+| 📜 **Local history** | Every PDF you've saved, searchable and re-exportable from your toolbar. |
+| ⚙️ **Full export control** | Paper size, margins, scaling, page breaks, headers — tune once, save your defaults. |
+| 🧹 **Remove elements** | Strip cookie banners, ads, or anything else before you capture. Session-local, never persisted. |
+
+---
+
+## 📦 Install
+
+### From Chrome Web Store (recommended)
+
+[**→ Install PageMint**](https://chromewebstore.google.com/detail/pagemint/clkeafinfphgcfhenakanegeibknecbm)
+
+### From source
+
+```bash
+git clone https://github.com/orangebread/pagemint.git
+cd pagemint
+pnpm install
+pnpm --filter @pagemint/extension build
+```
+
+Output lands in `apps/extension/.output/chrome-mv3`. In Chrome:
+1. Open `chrome://extensions`
+2. Toggle **Developer mode**
+3. Click **Load unpacked**, point at `apps/extension/.output/chrome-mv3`
+
+---
+
+## 🛡️ Privacy you can verify
+
+PageMint has **no hosted rendering, telemetry, account, checkout, entitlement, support-intake, or admin backend** in the open-source product.
+
+- Page content, rendered PDFs, settings, and optional history stay in the browser profile where PageMint is installed.
+- No third-party analytics. No phone-home. No usage pings.
+- The `debugger` permission is declared up front, gated behind a toggle, and attached only on demand.
+
+Because the source is public, this isn't a promise — it's something you can check. Open the DevTools network tab. Grep the source. Run a custom build.
+
+See [pagemint.space/trust](https://pagemint.space/trust) for the full permission baseline.
+
+---
+
+## 🧱 Repo layout
+
+```
+pagemint/
+├── apps/
+│   ├── extension/        # Chrome MV3 extension (WXT + React)
+│   └── site/             # Public marketing site (Next.js 15)
+├── packages/
+│   ├── render-core/      # Exact-export defaults + High Fidelity CDP primitives
+│   └── shared-types/     # Shared exact-export contracts
+├── tests/                # Unit, browser-boundary, scaffold, type contracts
+├── docs/                 # Product specs, architecture, roadmap
+└── scripts/              # Release + preflight tooling
+```
+
+---
+
+## 🧪 Verification
+
+| Command | What it runs |
+|---|---|
+| `pnpm run repo:verify` | **Strongest gate.** Lint, contracts, workspace tests, typecheck, build, real browser-boundary suite. |
+| `pnpm run repo:smoke` | Lightweight scaffold/authority check for planning + docs work. |
+| `pnpm run test:browser:install` | One-time Playwright Chromium install (required before `repo:verify`). |
+| `pnpm run dev` | Run extension + site dev servers in parallel via Turbo. |
+
+---
+
+## 🛠️ Tech stack
+
+- **Extension:** [WXT](https://wxt.dev/) · React 19 · TypeScript strict · Chrome MV3 · DevTools Protocol
+- **Site:** Next.js 15 · React 19 · server components · zero-runtime CSS
+- **Monorepo:** pnpm workspaces · Turborepo
+- **Testing:** node:test · Playwright (browser boundary) · contract typechecks
+
+---
+
+## 🤝 Contributing
+
+Bug reports, compatibility findings, and feature requests are welcome on the [issue tracker](https://github.com/orangebread/pagemint/issues).
+
+**Before opening an issue:**
+- Do **not** attach private page content, screenshots, PDFs, or secrets — issues are public.
+- Include browser, extension version, OS, and a public-URL repro when possible.
+- Search existing issues; add confirmation to an existing thread when the behavior is already reported.
+
+---
+
+## 📚 Documentation
+
+- [`LICENSE`](LICENSE) — MIT
+- [`docs/README.md`](docs/README.md) — docs map and status taxonomy
+- [`docs/product/INDEX.md`](docs/product/INDEX.md) — feature matrix and status labels
+- [`docs/reference/ARCHITECTURE.md`](docs/reference/ARCHITECTURE.md) — system architecture
+- [`docs/reference/ROADMAP.md`](docs/reference/ROADMAP.md) — what's next
+
+---
+
+## 🧼 Public repo hygiene
+
+The public tree intentionally excludes local agent, orchestration, and private environment artifacts. Keep secrets in local `.env` files or host-managed secret stores — never in git.
+
+---
+
+<div align="center">
+
+**Built with care for the web that doesn't print right.**
+
+[pagemint.space](https://pagemint.space) · [@orangebread/pagemint](https://github.com/orangebread/pagemint)
+
+</div>
