@@ -18,6 +18,8 @@ const requiredExtensionPackageFiles = [
   'background.js',
   'popup.html',
   'local-history.html',
+  'history.html',
+  'history-recovery.js',
   'selection-mode-runtime.js',
   'remove-elements-runtime.js'
 ];

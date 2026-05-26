@@ -147,6 +147,14 @@ test('built extension manifest does not override Chrome history', async () => {
 
   assert.equal('chrome_url_overrides' in manifest, false);
   await readFile(path.join(extensionOutputPath, 'local-history.html'), 'utf8');
+  assert.match(
+    await readFile(path.join(extensionOutputPath, 'history.html'), 'utf8'),
+    /history-recovery\.js/
+  );
+  assert.match(
+    await readFile(path.join(extensionOutputPath, 'history-recovery.js'), 'utf8'),
+    /chrome:\/\/history\//
+  );
 });
 
 test('real extension history page loads stored captures, groups them, and filters search results', async () => {
