@@ -87,7 +87,7 @@ The naming bug in the current surface came from letting one label imply more tha
 | **Output folder** | Optional folder for silent high-fidelity autosaves | extension-local folder handle + summary | Only relevant when autosave is on |
 | **Managed PDF asset** | A PDF PageMint already holds locally and can reopen, save again, or persist into local history | `deliveryClass = 'managed-pdf-asset'` | Distinct from browser-print handoffs; only managed assets can appear in the viewer/history surfaces |
 | **Current-session viewer** | A PageMint-owned viewer for the managed PDF asset created in the current run | `viewer.html` + staged managed asset | Only for managed assets; browser-print handoffs stay outside this surface |
-| **Local history** | Planned future local-only history of successful managed PDF assets | `history.html` + IndexedDB persistence | Not shipped yet; when it lands it stays local-only and excludes browser-print rows |
+| **Local history** | Planned future local-only history of successful managed PDF assets | `local-history.html` + IndexedDB persistence | Not shipped yet; when it lands it stays local-only and excludes browser-print rows |
 | **Remove elements on page** | Temporary manual cleanup before export | remove-elements mode | Session-local; not a saved rule set |
 | **Clean article** | Local cleanup/reader-style article surface for article-like pages | `captureMode = 'clean'` | Separate from Exact article; unsupported pages fail honestly |
 | **Selection mode** | Planned future export of one user-chosen region or element into the managed-asset workflow | selection mode | Not shipped yet; must stay separate from exact export, clean mode, and remove-elements cleanup |

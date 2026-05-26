@@ -17,6 +17,7 @@ const requiredExtensionPackageFiles = [
   'manifest.json',
   'background.js',
   'popup.html',
+  'local-history.html',
   'selection-mode-runtime.js',
   'remove-elements-runtime.js'
 ];
@@ -110,6 +111,10 @@ if (!fs.existsSync(manifestPath)) {
 
   assertArrayEqual(manifest.permissions ?? [], requiredPermissions, 'manifest permissions');
   assertArrayEqual(manifest.host_permissions ?? [], expectedHostPermissions, 'manifest host_permissions');
+
+  if ('chrome_url_overrides' in manifest) {
+    fail('production manifest must not override browser chrome pages such as history, bookmarks, or new tab');
+  }
 
   if (JSON.stringify(manifest).includes('localhost')) {
     fail('production manifest must not include localhost');

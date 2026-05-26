@@ -1094,7 +1094,7 @@ export function App() {
       <section className="opt-card">
         <div className="opt-history-head">
           <h2>Local capture history</h2>
-          <a className="opt-link-button" href="history.html" target="_blank" rel="noreferrer">Open in own tab →</a>
+          <a className="opt-link-button" href="local-history.html" target="_blank" rel="noreferrer">Open in own tab →</a>
         </div>
         <p className="opt-card__intro">
           {localHistoryDisabled

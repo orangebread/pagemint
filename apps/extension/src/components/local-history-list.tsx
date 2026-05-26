@@ -14,7 +14,7 @@ import {
   createLocalHistoryPageRows,
   filterLocalHistoryPageRows,
   groupLocalHistoryPageRowsByDay
-} from '../entrypoints/history/history-page';
+} from '../entrypoints/local-history/history-page';
 
 import './local-history-list.css';
 

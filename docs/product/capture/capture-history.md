@@ -55,7 +55,7 @@ Approved work:
 
 - no new permissions
 - no `unlimitedStorage` permission in v1
-- a new extension page `history.html` registered in the manifest and reachable from Options and completion-state links
+- a new extension page `local-history.html` reachable from Options and completion-state links without overriding Chrome's built-in History page
 
 ### 2. Data model
 
@@ -180,7 +180,7 @@ Approved outcomes:
 Approved outcomes:
 
 - implement `HistoryStore` on IndexedDB
-- register and build `history.html`
+- register and build `local-history.html` without emitting `chrome_url_overrides`
 - implement the Options-page local-history card
 - persist only successful managed-PDF assets
 - implement the history page browse/open/delete flow

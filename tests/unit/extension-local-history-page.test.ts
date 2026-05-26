@@ -13,7 +13,7 @@ import {
   createLocalHistoryPageRows,
   filterLocalHistoryPageRows,
   groupLocalHistoryPageRowsByDay
-} from '../../apps/extension/src/entrypoints/history/history-page.ts';
+} from '../../apps/extension/src/entrypoints/local-history/history-page.ts';
 
 function createHistoryCapture(
   id: string,

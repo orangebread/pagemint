@@ -74,6 +74,8 @@ test('Chrome Store preflight rejects packages missing injected runtime files', (
 
   assert.match(preflight, /selection-mode-runtime\.js/);
   assert.match(preflight, /remove-elements-runtime\.js/);
+  assert.match(preflight, /local-history\.html/);
+  assert.match(preflight, /chrome_url_overrides/);
   assert.match(preflight, /built extension package missing required runtime file/);
   assert.match(preflight, /Chrome Web Store zip missing required runtime file/);
   assert.match(preflight, /unzip/);
@@ -157,7 +159,7 @@ test('extension and store promo wordmark sources preserve PageMint casing', () =
   for (const sourcePath of [
     'apps/extension/src/entrypoints/popup/ExactExportPopupView.tsx',
     'apps/extension/src/entrypoints/options/App.tsx',
-    'apps/extension/src/entrypoints/history/App.tsx',
+    'apps/extension/src/entrypoints/local-history/App.tsx',
     'apps/extension/scripts/generate-store-tiles.mjs'
   ]) {
     const source = readText(sourcePath);

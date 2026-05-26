@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { execFile as execFileCallback } from 'node:child_process';
 import { promisify } from 'node:util';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
@@ -138,13 +138,24 @@ async function readLocalHistoryEntryCount(page: Page): Promise<number> {
   });
 }
 
+test('built extension manifest does not override Chrome history', async () => {
+  await ensureBuiltExtensionOutput();
+
+  const manifest = JSON.parse(
+    await readFile(path.join(extensionOutputPath, 'manifest.json'), 'utf8')
+  ) as Record<string, unknown>;
+
+  assert.equal('chrome_url_overrides' in manifest, false);
+  await readFile(path.join(extensionOutputPath, 'local-history.html'), 'utf8');
+});
+
 test('real extension history page loads stored captures, groups them, and filters search results', async () => {
   await ensureBuiltExtensionOutput();
   const { context, extensionId, userDataDir } = await launchExtensionContext();
 
   try {
     const page = await context.newPage();
-    await page.goto(`chrome-extension://${extensionId}/history.html`, {
+    await page.goto(`chrome-extension://${extensionId}/local-history.html`, {
       waitUntil: 'domcontentloaded'
     });
 
@@ -193,7 +204,7 @@ test('real extension viewer page reopens a stored history asset and can delete i
 
   try {
     const page = await context.newPage();
-    await page.goto(`chrome-extension://${extensionId}/history.html`, {
+    await page.goto(`chrome-extension://${extensionId}/local-history.html`, {
       waitUntil: 'domcontentloaded'
     });
 
